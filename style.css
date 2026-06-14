@@ -783,8 +783,8 @@ span {
 .navbar .animate,
 #menu-icon .animate,
 .home.show-animate .animate {
-    animation: showRight 1s ease forwards;
-    animation-delay: calc(.3s * var(--i));
+    animation: showRight 0.3s ease forwards;
+    animation-delay: calc(.08s * var(--i));
 }
 
 .animate.scroll {
