@@ -230,21 +230,18 @@ section {
 }
 
 .home-content .text-animate h3 {
-    font-size: 3rem;
+    position: relative;
+    display: inline-block;
+    font-size: 3.2rem;
     font-weight: 700;
     color: transparent;
     -webkit-text-stroke: .7px var(--main-color);
     background-image: linear-gradient(var(--main-color), var(--main-color));
     background-repeat: no-repeat;
     -webkit-background-clip: text;
-
     background-size: 0% 100%;
     white-space: nowrap;
-}
-
-
-.home-content .text-animate h3 {
-    animation: homeBgText 6s linear infinite;
+    animation: homeBgText 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     animation-delay: 0.5s;
 }
 
@@ -255,8 +252,8 @@ section {
     left: 0;
     height: 100%;
     width: 0;
-    border-right: 2px solid var(--main-color);
-    animation: homeCursorText 6s linear infinite;
+    border-right: 2.5px solid var(--main-color);
+    animation: homeCursorText 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     animation-delay: 0.5s;
 }
 
@@ -1493,6 +1490,10 @@ section,
         flex-direction: column;
     }
 
+    .home-content .text-animate h3 {
+        font-size: 2.4rem;
+    }
+
     .home-sci {
         width: 160px;
     }
@@ -1506,6 +1507,10 @@ section,
 @media (max-width: 462px) {
     .home-content h1 {
         font-size: 5.2rem;
+    }
+
+    .home-content .text-animate h3 {
+        font-size: 2.2rem;
     }
 
     .education {
@@ -1541,32 +1546,29 @@ section,
     .home-content h1 {
         font-size: 5rem;
     }
+
+    .home-content .text-animate h3 {
+        font-size: 1.95rem;
+    }
 }
 
 
 /* KEYFRAMES ANIMATION */
 
 @keyframes homeBgText {
-    0% {
+    0%, 10%, 100% {
         background-size: 0% 100%;
     }
-    50% {
-        background-size: 100% 100%;
-    }
-    100% {
+    60%, 82% {
         background-size: 100% 100%;
     }
 }
 
-
 @keyframes homeCursorText {
-    0% {
+    0%, 10%, 100% {
         width: 0;
     }
-    50% {
-        width: 100%;
-    }
-    100% {
+    60%, 82% {
         width: 100%;
     }
 }
