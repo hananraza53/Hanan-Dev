@@ -5,7 +5,13 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hanan Dev - Front-End Developer & Designer</title>
+  <meta name="description" content="Muhammad Hanan Raza — Full-Stack Web Developer specializing in HTML, CSS, JavaScript, PHP, C#, ASP.NET Core, React.js & Node.js. View my projects and get in touch." />
+  <title>Hanan Dev — Full-Stack Developer & Designer</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 
@@ -14,9 +20,15 @@
 </head>
 
 <body>
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Particle Canvas (Hero Background) -->
+  <canvas id="particleCanvas"></canvas>
+
   <!-- header design -->
   <header class="header">
-    <a href="#home" class="logo">Hanan Dev <span class="animate" style="--i: 1"></span></a>
+    <a href="#home" class="logo">Hanan Dev</a>
 
     <div class="theme-switcher" id="theme-switcher">
       <i class='bx bx-palette' id="theme-btn"></i>
@@ -34,9 +46,7 @@
       </div>
     </div>
 
-    <div class="bx bx-menu" id="menu-icon">
-      <span class="animate" style="--i: 2"></span>
-    </div>
+    <div class="bx bx-menu" id="menu-icon"></div>
 
     <nav class="navbar">
       <a href="#home" class="active">Home</a>
@@ -79,13 +89,30 @@
         <a href="M.Hanan Raza CV.pdf" class="btn" download>Download CV</a>
         <span class="animate" style="--i: 5"></span>
       </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num" data-count="8">8+</span>
+          <span class="stat-label">Live Projects</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num" data-count="3">3+</span>
+          <span class="stat-label">Years Learning</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Responsive</span>
+        </div>
+      </div>
     </div>
 
     <div class="home-sci">
       <!-- Netlify / live projects -->
       <a href="https://hanan-dev.netlify.app"><i class="bx bx-globe"></i></a>
       <!-- Indeed -->
-      <a href="https://profile.indeed.com/p/mr-dc6m483"><i class="bx bx-briefcase"></i></a>
+      <!-- <a href="https://profile.indeed.com/p/mr-dc6m483"><i class="bx bx-briefcase"></i></a> -->
       <!-- Linkedin -->
       <a href="https://www.linkedin.com/in/muhammad-hanan-raza"><i class="bx bxl-linkedin"></i></a>
       <!--  Github -->
@@ -181,8 +208,8 @@
               </div>
               <h3>Aptech Computer Education</h3>
               <p>
-                Completed CPISM and DISM programs, gaining practical skills in
-                HTML, CSS, JavaScript, PHP, and MySQL.
+                Completed CPISM, DISM, and HDSE-I gaining practical and advanced expertise in
+                HTML, CSS, JavaScript, PHP, MySQL, C#, ASP.NET Core, and MSSQL.
               </p>
             </div>
           </div>
@@ -243,17 +270,35 @@
             <!-- Laravel -->
             <div class="progress">
               <h3>Laravel <span>60%</span></h3>
-              <div class="bar"><span style="width: 50%"></span></div>
+              <div class="bar"><span style="width: 60%"></span></div>
             </div>
 
             <div class="progress">
-              <h3>C# <span>40%</span></h3>
-              <div class="bar"><span style="width: 50%"></span></div>
+              <h3>C# <span>80%</span></h3>
+              <div class="bar"><span style="width: 80%"></span></div>
             </div>
 
             <div class="progress">
-              <h3>Asp.Net <span>45%</span></h3>
-              <div class="bar"><span style="width: 50%"></span></div>
+              <h3>ASP.NET Core <span>85%</span></h3>
+              <div class="bar"><span style="width: 85%"></span></div>
+            </div>
+
+            <!-- React.js -->
+            <div class="progress">
+              <h3>React.js <span>65%</span></h3>
+              <div class="bar"><span style="width: 65%"></span></div>
+            </div>
+
+            <!-- Node.js -->
+            <div class="progress">
+              <h3>Node.js <span>60%</span></h3>
+              <div class="bar"><span style="width: 60%"></span></div>
+            </div>
+
+            <!-- Express.js -->
+            <div class="progress">
+              <h3>Express.js <span>60%</span></h3>
+              <div class="bar"><span style="width: 60%"></span></div>
             </div>
           </div>
 
@@ -299,8 +344,8 @@
             </div>
 
             <div class="progress">
-              <h3>MIcrosoft SQL <span>68%</span></h3>
-              <div class="bar"><span style="width: 75%"></span></div>
+              <h3>Microsoft SQL Server (MSSQL) <span>80%</span></h3>
+              <div class="bar"><span style="width: 80%"></span></div>
             </div>
           </div>
 
@@ -320,16 +365,15 @@
       <!-- Project 1 -->
       <div class="project-card">
         <div class="project-img">
-          <img src="images/Hanan Dev.png" alt="Portfolio Preview" />
+          <img src="images/Pixel Developer Portfolio.png" alt="Pixel Developer Portfolio Preview" />
           <div class="project-links">
-            <a href="https://hanan-dev.netlify.app" title="View Live"><i class="bx bx-link-external"></i></a>
+            <a href="https://pixel-developer-portfolio.netlify.app" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
             <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
           </div>
         </div>
         <div class="project-content">
-          <h3>Portfolio Website</h3>
-          <p>A sleek, modern web developer portfolio with a custom dark theme, vibrant neon accents, and smooth
-            animations.</p>
+          <h3>Pixel Developer Portfolio</h3>
+          <p>A retro 8-bit gaming-themed web developer portfolio featuring interactive quest logs, player stats, custom pixel typography, and dynamic animations.</p>
         </div>
         <span class="animate scroll" style="--i: 2"></span>
       </div>
@@ -339,7 +383,7 @@
         <div class="project-img">
           <img src="images/Sneaker World.png" alt="Sneaker World Preview" />
           <div class="project-links">
-            <a href="https://sneaker-world.netlify.app" title="View Live"><i class="bx bx-link-external"></i></a>
+            <a href="https://sneaker-world.netlify.app" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
             <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
           </div>
         </div>
@@ -356,7 +400,7 @@
         <div class="project-img">
           <img src="images/Urban Bites.png" alt="Urban Bites Preview" />
           <div class="project-links">
-            <a href="https://urban-bites-hub.netlify.app" title="View Live"><i class="bx bx-link-external"></i></a>
+            <a href="https://urban-bites-hub.netlify.app" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
             <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
           </div>
         </div>
@@ -366,6 +410,102 @@
             and real-time order calculations with a modern responsive UI.</p>
         </div>
         <span class="animate scroll" style="--i: 4"></span>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card">
+        <div class="project-img">
+          <img src="images/CardCraft.png" alt="CardCraft Preview" />
+          <div class="project-links">
+            <a href="https://create-your-own-official.netlify.app" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
+          </div>
+        </div>
+        <div class="project-content">
+          <h3>CardCraft – Custom Card Designer</h3>
+          <p>An interactive web application for designing and customizing professional cards for weddings, graduations, and invitations with real-time preview and dynamic themes.</p>
+        </div>
+        <span class="animate scroll" style="--i: 5"></span>
+      </div>
+
+      <!-- Project 5 -->
+      <div class="project-card">
+        <div class="project-img">
+          <img src="images/Marksheet Calculator.png" alt="Marksheet Calculator Preview" />
+          <div class="project-links">
+            <a href="https://marksheet-calculator.netlify.app" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
+          </div>
+        </div>
+        <div class="project-content">
+          <h3>Marksheet Calculator</h3>
+          <p>An intuitive academic calculation web app that calculates total marks, percentage, and grade distributions with real-time evaluation and input validation.</p>
+        </div>
+        <span class="animate scroll" style="--i: 6"></span>
+      </div>
+
+      <!-- Project 6 -->
+      <div class="project-card">
+        <div class="project-img">
+          <img src="images/Rolex Motion.png" alt="Rolex Motion Preview" />
+          <div class="project-links">
+            <a href="https://rolex-motion.netlify.app" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
+          </div>
+        </div>
+        <div class="project-content">
+          <h3>Rolex Motion Experience</h3>
+          <p>A cinematic scroll-driven web experience created by converting video into sequenced frames and synchronizing bidirectional scroll movements using AI-assisted animation.</p>
+        </div>
+        <span class="animate scroll" style="--i: 7"></span>
+      </div>
+
+      <!-- Project 7 -->
+      <div class="project-card">
+        <div class="project-img">
+          <img src="images/Royal Express.png" alt="Royal Express Preview" />
+          <div class="project-links">
+            <a href="https://royal-express.great-site.net" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
+          </div>
+        </div>
+        <div class="project-content">
+          <h3>Royal Express – Courier Management System</h3>
+          <p>A full-stack logistics and courier service web application built with PHP and MySQL, featuring online shipment booking, request handling, and user authentication.</p>
+        </div>
+        <span class="animate scroll" style="--i: 8"></span>
+      </div>
+
+      <!-- Project 8 -->
+      <div class="project-card">
+        <div class="project-img">
+          <img src="images/Give AID.png" alt="Give-AID Preview" />
+          <div class="project-links">
+            <a href="https://my-give-aid.runasp.net" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
+          </div>
+        </div>
+        <div class="project-content">
+          <h3>Give-AID – Humanitarian NGO Platform</h3>
+          <p>A full-stack welfare and charity web platform developed using ASP.NET Core MVC and MSSQL, connecting donors, NGO programmes, partners, and volunteer networks.</p>
+        </div>
+        <span class="animate scroll" style="--i: 9"></span>
+      </div>
+
+      <!-- Project 9 -->
+      <div class="project-card">
+        <div class="project-img">
+          <img src="images/E World.png" alt="E-World Preview" />
+          <div class="project-links">
+            <a href="https://e-world.runasp.net" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
+          </div>
+        </div>
+        <div class="project-content">
+          <h3>E-World – Multi-Category E-Commerce Platform</h3>
+          <p>A feature-rich online shopping web platform built with ASP.NET Core MVC and MSSQL, featuring multi-category catalogs, flash sales, user accounts, and cart management.</p>
+        </div>
+        <span class="animate scroll" style="--i: 10"></span>
       </div>
     </div>
   </section>
@@ -433,6 +573,26 @@
       <span class="animate scroll" style="--i: 3"></span>
     </div>
   </footer>
+
+  <!-- Floating Rolex-style Scroll HUD / Back to Top -->
+  <div class="scroll-hud" id="scrollHud" title="Click to Scroll to Top" aria-label="Scroll to top">
+    <div class="hud-arrow-badge">
+      <i class='bx bx-up-arrow-alt'></i>
+    </div>
+    <div class="hud-circle">
+      <svg viewBox="0 0 36 36" class="hud-svg">
+        <circle cx="18" cy="18" r="15.8" class="hud-inner-circle" />
+        <path class="hud-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+        <path class="hud-progress" id="hudCircle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+      </svg>
+      <span class="hud-pct" id="hudPct">0%</span>
+      <i class='bx bx-up-arrow-alt hud-center-arrow'></i>
+    </div>
+    <div class="hud-label-box">
+      <span class="hud-section" id="hudSection">HOME</span>
+      <span class="hud-top-hint">TOP</span>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
