@@ -328,6 +328,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ------------------------------------------
+    // 6b. SKILLS PROGRESS BARS COME/GO ANIMATION
+    // ------------------------------------------
+    const skillsSection = document.querySelector('#skills');
+    const skillBars = document.querySelectorAll('.skills .bar span');
+
+    // Ensure all skill bars have their target width saved in CSS variable and clear inline width
+    skillBars.forEach(bar => {
+        let w = bar.style.getPropertyValue('--w') || bar.style.width;
+        if (!w) {
+            const pctSpan = bar.closest('.progress')?.querySelector('h3 span');
+            if (pctSpan) w = pctSpan.textContent.trim();
+        }
+        if (w) {
+            if (!w.endsWith('%') && !w.endsWith('px')) w += '%';
+            bar.style.setProperty('--w', w);
+            bar.dataset.width = w;
+            bar.style.width = '';
+        }
+    });
+
+    if (skillsSection && 'IntersectionObserver' in window) {
+        const skillsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    skillsSection.classList.add('active-skills');
+                } else {
+                    skillsSection.classList.remove('active-skills');
+                }
+            });
+        }, {
+            threshold: 0.08,
+            rootMargin: '0px 0px -40px 0px'
+        });
+        skillsObserver.observe(skillsSection);
+    }
+
+    // ------------------------------------------
     // 7. INTERACTIVE PARTICLE CONSTELLATION CANVAS
     // ------------------------------------------
     const canvas = document.getElementById('particleCanvas');
