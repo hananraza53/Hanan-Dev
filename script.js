@@ -4,6 +4,49 @@
 // 3D Tilt Effects, Dynamic Theme Engine
 // ==========================================
 
+// ------------------------------------------
+// CLIENT-SIDE SECURITY ENGINE
+// Console protection only.
+// Right-click & Inspect are intentionally
+// allowed for responsive / accessibility.
+// ------------------------------------------
+(function initSecurity() {
+
+    // ── Console Security: banner + periodic clear ──
+    const style = [
+        'color: #00abf0',
+        'font-size: 14px',
+        'font-weight: bold',
+        'background: #081b29',
+        'padding: 8px 16px',
+        'border-left: 4px solid #00abf0',
+        'border-radius: 4px'
+    ].join(';');
+
+    const warn = () => {
+        console.clear();
+        console.log('%c⚠ HANAN DEV — SECURITY NOTICE', style);
+        console.log('%cThis console is monitored. Do not paste unknown code here.', 'color:#e74c3c;font-size:12px;');
+    };
+
+    // Show immediately, then repeat every 4 s
+    warn();
+    setInterval(warn, 4000);
+
+    // ── Block Ctrl+U (View Page Source) ──
+    // Viewing page source in a new tab exposes raw HTML — block it.
+    window.addEventListener('keydown', (e) => {
+        const isModifier = e.ctrlKey || e.metaKey;
+        if (isModifier && (e.key === 'u' || e.key === 'U')) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+    }, true);
+
+})();
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // ------------------------------------------

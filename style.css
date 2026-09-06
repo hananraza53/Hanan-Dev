@@ -147,11 +147,101 @@ body {
     background: rgba(42, 8, 8, 0.75);
 }
 
+/* ============================================
+   ANIMATED LOGO — PILL BADGE WORDMARK
+   ============================================ */
 .logo {
     position: relative;
-    font-size: 2.5rem;
-    color: var(--text-color);
-    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.logo-svg-wrap {
+    display: inline-flex;
+    align-items: center;
+}
+
+.logo-svg {
+    height: 44px;
+    width: auto;
+    overflow: visible;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                filter 0.4s ease;
+}
+
+/* ── "Hanan" name: fade + slide in ── */
+.logo-name {
+    opacity: 0;
+    animation: logoNameIn 0.6s 0.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes logoNameIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* ── Pill badge: fade in, then continuous glow pulse ── */
+.logo-pill {
+    opacity: 0;
+    animation:
+        pillFadeIn    0.5s 0.35s ease forwards,
+        pillGlowPulse 3s   0.9s  ease-in-out infinite;
+}
+
+@keyframes pillFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes pillGlowPulse {
+    0%, 100% { filter: drop-shadow(0 0 5px var(--main-color)); }
+    50%       { filter: drop-shadow(0 0 14px var(--main-color)); }
+}
+
+/* ── Pill shine overlay ── */
+.logo-pill-shine {
+    opacity: 0;
+    animation: shineIn 0.4s 0.55s ease forwards;
+}
+
+@keyframes shineIn {
+    to { opacity: 0.15; }
+}
+
+/* ── "Dev" text inside pill ── */
+.logo-dev {
+    opacity: 0;
+    animation: devTextIn 0.35s 0.6s ease forwards;
+}
+
+@keyframes devTextIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* ── Hover: lift whole logo + intensify pill glow ── */
+.logo:hover .logo-svg {
+    transform: scale(1.05) translateY(-2px);
+}
+
+.logo:hover .logo-pill {
+    filter: drop-shadow(0 0 18px var(--main-color));
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .logo-svg { height: 38px; }
+}
+
+@media (max-width: 520px) {
+    .logo-svg { height: 32px; }
+}
+
+@media (max-width: 380px) {
+    .logo-svg { height: 27px; }
 }
 
 .navbar {
@@ -906,10 +996,11 @@ span {
 
 .footer {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    text-align: center;
     flex-wrap: wrap;
-    padding: 2.2rem 10%;
+    padding: 2.4rem 9%;
     background: var(--second-bg-color);
 }
 
@@ -917,8 +1008,16 @@ span {
     display: none;
 }
 
+.footer-text {
+    width: 100%;
+    text-align: center;
+}
+
 .footer-text p {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    text-align: center;
+    line-height: 1.6;
 }
 
 .footer-iconTop a {
@@ -1541,11 +1640,10 @@ section,
     }
 
     .footer {
-        flex-direction: column-reverse;
+        text-align: center;
     }
 
     .footer p {
-        margin-top: 2rem;
         text-align: center;
     }
 }
@@ -1611,4 +1709,41 @@ section,
         bottom: 1rem;
         margin-top: 3rem; /* Adjust this for smaller screens */
     }
+}
+
+/* ---- SECURITY TOAST NOTIFICATION ---- */
+.security-toast {
+    position: fixed;
+    bottom: 3.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: rgba(8, 27, 41, 0.94);
+    border: 1.5px solid var(--main-color);
+    color: var(--text-color);
+    padding: 1.2rem 2.6rem;
+    border-radius: 5rem;
+    font-size: 1.45rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 171, 240, 0.4);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    z-index: 999999;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    white-space: nowrap;
+}
+
+.security-toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.security-toast i {
+    font-size: 2.2rem;
+    color: var(--main-color);
 }

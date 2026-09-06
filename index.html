@@ -5,13 +5,15 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Muhammad Hanan Raza — Full-Stack Web Developer specializing in HTML, CSS, JavaScript, PHP, C#, ASP.NET Core, React.js & Node.js. View my projects and get in touch." />
+  <meta name="description"
+    content="Muhammad Hanan Raza — Full-Stack Web Developer specializing in HTML, CSS, JavaScript, PHP, C#, ASP.NET Core, React.js & Node.js. View my projects and get in touch." />
   <title>Hanan Dev — Full-Stack Developer & Designer</title>
 
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 
@@ -28,7 +30,76 @@
 
   <!-- header design -->
   <header class="header">
-    <a href="#home" class="logo">Hanan Dev</a>
+    <a href="#home" class="logo" aria-label="Hanan Dev - Home">
+      <span class="logo-svg-wrap">
+        <!--
+          LOGO: "Hanan" bold wordmark + "Dev" glowing pill badge
+          No code symbols. Pure premium typographic logo.
+        -->
+        <svg class="logo-svg" viewBox="0 0 160 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <!-- Pill gradient fill -->
+            <linearGradient id="lgPill" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="var(--main-color)" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#00e5cc" stop-opacity="1"/>
+            </linearGradient>
+            <!-- Wordmark gradient -->
+            <linearGradient id="lgName" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="var(--text-color)"/>
+              <stop offset="100%" stop-color="#cceeff"/>
+            </linearGradient>
+            <!-- Glow filter for pill -->
+            <filter id="pillGlow" x="-25%" y="-40%" width="150%" height="180%">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+            <!-- Soft glow for name text -->
+            <filter id="nameGlow" x="-5%" y="-20%" width="110%" height="140%">
+              <feGaussianBlur stdDeviation="1.2" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- ══ "Hanan" bold wordmark ══ -->
+          <text class="logo-name"
+            x="0" y="32"
+            font-size="26"
+            font-family="'Inter','Poppins',sans-serif"
+            font-weight="800"
+            letter-spacing="0.5"
+            fill="url(#lgName)"
+            filter="url(#nameGlow)">Hanan</text>
+
+          <!-- ══ "Dev" pill badge (starts right after Hanan ~78px + 8gap = 86) ══ -->
+          <!-- Pill background -->
+          <rect class="logo-pill"
+            x="86" y="7" width="54" height="28"
+            rx="14" ry="14"
+            fill="url(#lgPill)"
+            filter="url(#pillGlow)"/>
+          <!-- Pill top-shine highlight -->
+          <rect class="logo-pill-shine"
+            x="86" y="7" width="54" height="14"
+            rx="14" ry="14"
+            fill="white" opacity="0.15"/>
+          <!-- "Dev" text centred in pill -->
+          <text class="logo-dev"
+            x="113" y="27"
+            font-size="15"
+            font-family="'Inter','Poppins',sans-serif"
+            font-weight="700"
+            letter-spacing="2"
+            text-anchor="middle"
+            fill="#081b29">Dev</text>
+        </svg>
+      </span>
+    </a>
 
     <div class="theme-switcher" id="theme-switcher">
       <i class='bx bx-palette' id="theme-btn"></i>
@@ -73,7 +144,8 @@
       <p>
         I'm Muhammad Hanan Raza — a web developer focused on building clean, fast, and user-friendly websites.
 
-        I specialize in creating responsive and dynamic web applications using HTML, CSS, JavaScript, PHP, MySQL, C#, ASP.NET Core, React.js, and Node.js.
+        I specialize in creating responsive and dynamic web applications using HTML, CSS, JavaScript, PHP, MySQL, C#,
+        ASP.NET Core, React.js, and Node.js.
 
         I value simplicity in design, reliability in functionality, and continuous learning to ensure every project is
         better than the last.
@@ -371,13 +443,15 @@
         <div class="project-img">
           <img src="images/Pixel Developer Portfolio.png" alt="Pixel Developer Portfolio Preview" />
           <div class="project-links">
-            <a href="https://pixel-developer-portfolio.netlify.app" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <a href="https://pixel-developer-portfolio.netlify.app" target="_blank" title="View Live"><i
+                class="bx bx-link-external"></i></a>
             <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
           </div>
         </div>
         <div class="project-content">
           <h3>Pixel Developer Portfolio</h3>
-          <p>A retro 8-bit gaming-themed web developer portfolio featuring interactive quest logs, player stats, custom pixel typography, and dynamic animations.</p>
+          <p>A retro 8-bit gaming-themed web developer portfolio featuring interactive quest logs, player stats, custom
+            pixel typography, and dynamic animations.</p>
         </div>
         <span class="animate scroll" style="--i: 2"></span>
       </div>
@@ -387,7 +461,8 @@
         <div class="project-img">
           <img src="images/Sneaker World.png" alt="Sneaker World Preview" />
           <div class="project-links">
-            <a href="https://sneaker-world.netlify.app" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <a href="https://sneaker-world.netlify.app" target="_blank" title="View Live"><i
+                class="bx bx-link-external"></i></a>
             <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
           </div>
         </div>
@@ -404,7 +479,8 @@
         <div class="project-img">
           <img src="images/Urban Bites.png" alt="Urban Bites Preview" />
           <div class="project-links">
-            <a href="https://urban-bites-hub.netlify.app" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <a href="https://urban-bites-hub.netlify.app" target="_blank" title="View Live"><i
+                class="bx bx-link-external"></i></a>
             <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
           </div>
         </div>
@@ -421,13 +497,15 @@
         <div class="project-img">
           <img src="images/CardCraft.png" alt="CardCraft Preview" />
           <div class="project-links">
-            <a href="https://create-your-own-official.netlify.app" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <a href="https://create-your-own-official.netlify.app" target="_blank" title="View Live"><i
+                class="bx bx-link-external"></i></a>
             <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
           </div>
         </div>
         <div class="project-content">
           <h3>CardCraft – Custom Card Designer</h3>
-          <p>An interactive web application for designing and customizing professional cards for weddings, graduations, and invitations with real-time preview and dynamic themes.</p>
+          <p>An interactive web application for designing and customizing professional cards for weddings, graduations,
+            and invitations with real-time preview and dynamic themes.</p>
         </div>
         <span class="animate scroll" style="--i: 5"></span>
       </div>
@@ -437,13 +515,15 @@
         <div class="project-img">
           <img src="images/Marksheet Calculator.png" alt="Marksheet Calculator Preview" />
           <div class="project-links">
-            <a href="https://marksheet-calculator.netlify.app" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <a href="https://marksheet-calculator.netlify.app" target="_blank" title="View Live"><i
+                class="bx bx-link-external"></i></a>
             <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
           </div>
         </div>
         <div class="project-content">
           <h3>Marksheet Calculator</h3>
-          <p>An intuitive academic calculation web app that calculates total marks, percentage, and grade distributions with real-time evaluation and input validation.</p>
+          <p>An intuitive academic calculation web app that calculates total marks, percentage, and grade distributions
+            with real-time evaluation and input validation.</p>
         </div>
         <span class="animate scroll" style="--i: 6"></span>
       </div>
@@ -453,13 +533,15 @@
         <div class="project-img">
           <img src="images/Rolex Motion.png" alt="Rolex Motion Preview" />
           <div class="project-links">
-            <a href="https://rolex-motion.netlify.app" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <a href="https://rolex-motion.netlify.app" target="_blank" title="View Live"><i
+                class="bx bx-link-external"></i></a>
             <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
           </div>
         </div>
         <div class="project-content">
           <h3>Rolex Motion Experience</h3>
-          <p>A cinematic scroll-driven web experience created by converting video into sequenced frames and synchronizing bidirectional scroll movements using AI-assisted animation.</p>
+          <p>A cinematic scroll-driven web experience created by converting video into sequenced frames and
+            synchronizing bidirectional scroll movements using AI-assisted animation.</p>
         </div>
         <span class="animate scroll" style="--i: 7"></span>
       </div>
@@ -469,13 +551,15 @@
         <div class="project-img">
           <img src="images/Royal Express.png" alt="Royal Express Preview" />
           <div class="project-links">
-            <a href="https://royal-express.great-site.net" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <a href="https://royal-express.great-site.net" target="_blank" title="View Live"><i
+                class="bx bx-link-external"></i></a>
             <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
           </div>
         </div>
         <div class="project-content">
           <h3>Royal Express – Courier Management System</h3>
-          <p>A full-stack logistics and courier service web application built with PHP and MySQL, featuring online shipment booking, request handling, and user authentication.</p>
+          <p>A full-stack logistics and courier service web application built with PHP and MySQL, featuring online
+            shipment booking, request handling, and user authentication.</p>
         </div>
         <span class="animate scroll" style="--i: 8"></span>
       </div>
@@ -485,13 +569,15 @@
         <div class="project-img">
           <img src="images/Give AID.png" alt="Give-AID Preview" />
           <div class="project-links">
-            <a href="https://my-give-aid.runasp.net" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <a href="https://my-give-aid.runasp.net" target="_blank" title="View Live"><i
+                class="bx bx-link-external"></i></a>
             <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
           </div>
         </div>
         <div class="project-content">
           <h3>Give-AID – Humanitarian NGO Platform</h3>
-          <p>A full-stack welfare and charity web platform developed using ASP.NET Core MVC and MSSQL, connecting donors, NGO programmes, partners, and volunteer networks.</p>
+          <p>A full-stack welfare and charity web platform developed using ASP.NET Core MVC and MSSQL, connecting
+            donors, NGO programmes, partners, and volunteer networks.</p>
         </div>
         <span class="animate scroll" style="--i: 9"></span>
       </div>
@@ -501,13 +587,15 @@
         <div class="project-img">
           <img src="images/E World.png" alt="E-World Preview" />
           <div class="project-links">
-            <a href="https://e-world.runasp.net" target="_blank" title="View Live"><i class="bx bx-link-external"></i></a>
+            <a href="https://e-world.runasp.net" target="_blank" title="View Live"><i
+                class="bx bx-link-external"></i></a>
             <!-- <a href="#" title="Source Code"><i class="bx bxl-github"></i></a> -->
           </div>
         </div>
         <div class="project-content">
           <h3>E-World – Multi-Category E-Commerce Platform</h3>
-          <p>A feature-rich online shopping web platform built with ASP.NET Core MVC and MSSQL, featuring multi-category catalogs, flash sales, user accounts, and cart management.</p>
+          <p>A feature-rich online shopping web platform built with ASP.NET Core MVC and MSSQL, featuring multi-category
+            catalogs, flash sales, user accounts, and cart management.</p>
         </div>
         <span class="animate scroll" style="--i: 10"></span>
       </div>
@@ -586,8 +674,9 @@
     <div class="hud-circle">
       <svg viewBox="0 0 36 36" class="hud-svg">
         <circle cx="18" cy="18" r="15.8" class="hud-inner-circle" />
-        <path class="hud-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
-        <path class="hud-progress" id="hudCircle" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+        <path class="hud-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+        <path class="hud-progress" id="hudCircle" stroke-dasharray="0, 100"
+          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
       </svg>
       <span class="hud-pct" id="hudPct">0%</span>
       <i class='bx bx-up-arrow-alt hud-center-arrow'></i>
