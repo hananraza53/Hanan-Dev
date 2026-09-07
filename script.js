@@ -237,13 +237,20 @@ document.addEventListener('DOMContentLoaded', () => {
         startLerpLoop();
     }, { passive: false });
 
-    // Sync if user drags scrollbar directly or touches
+    // Sync if user drags scrollbar directly or touches (RAF-throttled for 60/120fps mobile performance)
+    let scrollRafTicking = false;
     window.addEventListener('scroll', () => {
         const actualY = window.scrollY || window.pageYOffset;
         if (!isLerping || Math.abs(actualY - currentScrollY) > 6) {
             currentScrollY = actualY;
             targetScrollY = actualY;
-            updateHUDAndEffects(actualY);
+            if (!scrollRafTicking) {
+                requestAnimationFrame(() => {
+                    updateHUDAndEffects(currentScrollY);
+                    scrollRafTicking = false;
+                });
+                scrollRafTicking = true;
+            }
         }
     }, { passive: true });
 
@@ -376,7 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const skillsSection = document.querySelector('#skills');
     const skillBars = document.querySelectorAll('.skills .bar span');
 
-    // Ensure all skill bars have their target width saved in CSS variable and clear inline width
+    // Ensure all skill bars have their target width saved in CSS variable and static width applied
     skillBars.forEach(bar => {
         let w = bar.style.getPropertyValue('--w') || bar.style.width;
         if (!w) {
@@ -387,7 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!w.endsWith('%') && !w.endsWith('px')) w += '%';
             bar.style.setProperty('--w', w);
             bar.dataset.width = w;
-            bar.style.width = '';
+            bar.style.width = w;
         }
     });
 
@@ -401,8 +408,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }, {
-            threshold: 0.08,
-            rootMargin: '0px 0px -40px 0px'
+            threshold: 0.05,
+            rootMargin: '0px 0px -20px 0px'
         });
         skillsObserver.observe(skillsSection);
     }

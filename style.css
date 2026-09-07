@@ -839,13 +839,20 @@ span {
 .skills-content .progress .bar span {
     display: block;
     height: 100%;
-    width: 0%;
+    width: var(--w, 0%);
     border-radius: 5rem;
     background: linear-gradient(90deg, var(--main-color), #00ffaa);
-    box-shadow: 0 0 12px var(--main-color);
-    transition: width 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 0 10px rgba(0, 171, 240, 0.4);
     position: relative;
     overflow: hidden;
+    transform-origin: left center;
+    -webkit-transform-origin: left center;
+    transform: scaleX(0);
+    -webkit-transform: scaleX(0);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .skills-content .progress .bar span::after {
@@ -855,8 +862,9 @@ span {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-    animation: barShimmer 2.5s infinite;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    transform: translateX(-100%);
+    will-change: transform;
 }
 
 @keyframes barShimmer {
@@ -864,11 +872,18 @@ span {
     100% { transform: translateX(100%); }
 }
 
-/* Animate skill progress bars whenever user enters skills section */
+/* Animate skill progress bars whenever user enters skills section — GPU composited 60/120fps */
 .skills.show-animate .skills-content .progress .bar span,
 .skills.active-skills .skills-content .progress .bar span {
-    width: var(--w, 0%);
-    transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform: scaleX(1);
+    -webkit-transform: scaleX(1);
+    transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skills.show-animate .skills-content .progress .bar span::after,
+.skills.active-skills .skills-content .progress .bar span::after {
+    animation: barShimmer 2.5s infinite;
+    animation-delay: 0.8s;
 }
 
 /* Staggered cascading animation on enter */
