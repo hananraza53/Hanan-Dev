@@ -377,19 +377,22 @@ body.preloading {
 }
 
 .preloader-shockwave.blast {
-    animation: shockwaveBlast 0.95s cubic-bezier(0.1, 0.85, 0.25, 1) forwards;
+    animation: shockwaveBlast 1.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes shockwaveBlast {
     0% {
-        transform: translate3d(0, 0, 0) scale(0.05);
+        transform: translate3d(0, 0, 0) scale(0.08);
         opacity: 1;
     }
-    40% {
-        opacity: 0.8;
+    30% {
+        opacity: 0.9;
+    }
+    65% {
+        opacity: 0.5;
     }
     100% {
-        transform: translate3d(0, 0, 0) scale(24);
+        transform: translate3d(0, 0, 0) scale(26);
         opacity: 0;
         visibility: hidden;
     }
