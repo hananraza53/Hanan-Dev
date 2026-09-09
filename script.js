@@ -236,9 +236,14 @@
                     if (isFinished) return;
                     // Phase 3: Badge pop + shockwave (2700ms - 3800ms)
                     if (devPill) devPill.classList.add('pop');
-                    if (shockwave) shockwave.classList.add('blast');
+                    if (shockwave) {
+                        shockwave.classList.add('blast');
+                        shockwave.addEventListener('animationend', () => {
+                            shockwave.style.display = 'none';
+                        }, { once: true });
+                    }
 
-                    // Phase 4: Exit sequence — hold 1.5s to showcase final brand
+                    // Phase 4: Exit sequence — hold 1.8s to showcase final brand
                     setTimeout(() => {
                         exitPreloader();
                     }, 1800);
@@ -789,6 +794,11 @@ document.addEventListener('DOMContentLoaded', () => {
     let animationFrameId;
 
     function animateParticles() {
+        if (document.body.classList.contains('preloading')) {
+            animationFrameId = requestAnimationFrame(animateParticles);
+            return;
+        }
+
         ctx.clearRect(0, 0, width, height);
 
         // Update and draw particles
