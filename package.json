@@ -1,0 +1,13 @@
+{
+  "name": "hanan-dev-portfolio",
+  "version": "1.0.0",
+  "description": "Muhammad Hanan Raza — Full-Stack Web Developer Portfolio",
+  "scripts": {
+    "start": "npx serve -l 8080 .",
+    "dev": "npx serve -l 8080 .",
+    "build": "echo 'Static build ready'"
+  },
+  "keywords": [],
+  "author": "Muhammad Hanan Raza",
+  "license": "ISC"
+}

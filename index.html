@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="preloading">
 
 <head>
   <meta charset="UTF-8" />
@@ -8,6 +8,15 @@
   <meta name="description"
     content="Muhammad Hanan Raza — Full-Stack Web Developer specializing in HTML, CSS, JavaScript, PHP, C#, ASP.NET Core, React.js & Node.js. View my projects and get in touch." />
   <title>Hanan Dev — Full-Stack Developer & Designer</title>
+
+  <!-- Early Preloader Scroll Lock -->
+  <script>
+    document.documentElement.classList.add('preloading');
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+  </script>
 
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -21,7 +30,7 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="preloading">
   <!-- ═══════════════════════════════════════════════════
        CINEMATIC PRELOADER — Multi-Phase Loading Experience
        ═══════════════════════════════════════════════════ -->

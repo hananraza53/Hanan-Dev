@@ -2,9 +2,15 @@
 
 
 
-/* Body hidden during preload to prevent FOUC */
+/* Complete scroll lockdown during preload */
+html.preloading,
 body.preloading {
     overflow: hidden !important;
+    height: 100% !important;
+    max-height: 100vh !important;
+    touch-action: none !important;
+    -webkit-overflow-scrolling: none !important;
+    overscroll-behavior: none !important;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -13,6 +19,8 @@ body.preloading {
 .preloader {
     position: fixed;
     inset: 0;
+    width: 100vw;
+    height: 100vh;
     z-index: 999999;
     background: radial-gradient(circle at center, #061826 0%, #030a10 70%, #010408 100%);
     display: flex;
@@ -22,6 +30,8 @@ body.preloading {
     clip-path: circle(150% at 50% 50%);
     transition: clip-path 1.1s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.8s ease;
     user-select: none;
+    touch-action: none !important;
+    overscroll-behavior: none !important;
 }
 
 .preloader.fade-out {

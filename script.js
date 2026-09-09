@@ -3,9 +3,48 @@
 // Multi-phase loading experience with
 // matrix rain, particle assembly, shockwave
 // ==========================================
+window.__isPreloading = true;
+
+// Prevent browser from restoring scrolled position on refresh
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
+// Global event interceptors to prevent scroll events while preloader runs
+function preventScrollDuringPreload(e) {
+    if (window.__isPreloading || document.body.classList.contains('preloading')) {
+        if (e.type === 'keydown') {
+            const scrollKeys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
+            if (scrollKeys.includes(e.key)) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        } else {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }
+}
+
+function pinScrollToTop() {
+    if (window.__isPreloading || document.body.classList.contains('preloading')) {
+        if (window.scrollY !== 0 || window.scrollX !== 0) {
+            window.scrollTo(0, 0);
+        }
+    }
+}
+
+window.addEventListener('wheel', preventScrollDuringPreload, { passive: false, capture: true });
+window.addEventListener('touchmove', preventScrollDuringPreload, { passive: false, capture: true });
+window.addEventListener('keydown', preventScrollDuringPreload, { capture: true });
+window.addEventListener('scroll', pinScrollToTop, { passive: false, capture: true });
+
 (function initPreloader() {
-    // Lock body scroll during preload
+    // Lock html & body scroll during preload
+    document.documentElement.classList.add('preloading');
     document.body.classList.add('preloading');
+    window.scrollTo(0, 0);
 
     const preloader = document.getElementById('preloader');
     if (!preloader) return;
@@ -268,7 +307,18 @@
 
             setTimeout(() => {
                 preloader.style.display = 'none';
+                window.__isPreloading = false;
+                document.documentElement.classList.remove('preloading');
                 document.body.classList.remove('preloading');
+
+                window.removeEventListener('wheel', preventScrollDuringPreload, { capture: true });
+                window.removeEventListener('touchmove', preventScrollDuringPreload, { capture: true });
+                window.removeEventListener('keydown', preventScrollDuringPreload, { capture: true });
+                window.removeEventListener('scroll', pinScrollToTop, { capture: true });
+
+                // Force reset to top and notify LERP engine
+                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+                window.dispatchEvent(new CustomEvent('preloaderFinished'));
 
                 cancelAnimationFrame(animFrameMatrix);
                 cancelAnimationFrame(animFrameDots);
@@ -428,10 +478,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('header');
     const footer = document.querySelector('footer');
 
-    let currentScrollY = window.scrollY || window.pageYOffset;
-    let targetScrollY = currentScrollY;
+    const isPreloadActive = () => window.__isPreloading || document.body.classList.contains('preloading');
+
+    let currentScrollY = 0;
+    let targetScrollY = 0;
     let isLerping = false;
     const lerpFactor = 0.055; // Silky smooth deceleration (~0.05 - 0.06)
+
+    if (!isPreloadActive()) {
+        currentScrollY = window.scrollY || window.pageYOffset;
+        targetScrollY = currentScrollY;
+    } else {
+        window.scrollTo(0, 0);
+    }
 
     function getMaxScroll() {
         return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
@@ -498,6 +557,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startLerpLoop() {
+        if (isPreloadActive()) return;
         if (!isLerping) {
             isLerping = true;
             requestAnimationFrame(lerpUpdate);
@@ -505,6 +565,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function lerpUpdate() {
+        if (isPreloadActive()) {
+            isLerping = false;
+            currentScrollY = 0;
+            targetScrollY = 0;
+            window.scrollTo(0, 0);
+            return;
+        }
         const maxScroll = getMaxScroll();
         targetScrollY = Math.max(0, Math.min(targetScrollY, maxScroll));
         const diff = targetScrollY - currentScrollY;
@@ -528,6 +595,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Intercept mouse wheel for unified inertial scrolling
     window.addEventListener('wheel', (e) => {
+        if (isPreloadActive()) {
+            e.preventDefault();
+            return;
+        }
         if (e.ctrlKey) return; // Allow normal browser zoom
 
         e.preventDefault();
@@ -548,6 +619,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sync if user drags scrollbar directly or touches (RAF-throttled for 60/120fps mobile performance)
     let scrollRafTicking = false;
     window.addEventListener('scroll', () => {
+        if (isPreloadActive()) {
+            window.scrollTo(0, 0);
+            return;
+        }
         const actualY = window.scrollY || window.pageYOffset;
         if (!isLerping || Math.abs(actualY - currentScrollY) > 6) {
             currentScrollY = actualY;
@@ -564,6 +639,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Keyboard navigation support (ArrowDown, ArrowUp, PageDown, PageUp, Space, Home, End)
     window.addEventListener('keydown', (e) => {
+        if (isPreloadActive()) {
+            return;
+        }
         const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
         if (activeTag === 'input' || activeTag === 'textarea') return;
 
@@ -590,6 +668,14 @@ document.addEventListener('DOMContentLoaded', () => {
             targetScrollY = Math.max(0, Math.min(targetScrollY, getMaxScroll()));
             startLerpLoop();
         }
+    });
+
+    // Listen for preloader completion to reset position and sync HUD cleanly from top
+    window.addEventListener('preloaderFinished', () => {
+        currentScrollY = 0;
+        targetScrollY = 0;
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        updateHUDAndEffects(0);
     });
 
     // Smooth Anchor Navigation driven by LERP
