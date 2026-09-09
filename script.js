@@ -1,8 +1,311 @@
 // ==========================================
+// CINEMATIC PRELOADER ENGINE
+// Multi-phase loading experience with
+// matrix rain, particle assembly, shockwave
+// ==========================================
+(function initPreloader() {
+    // Lock body scroll during preload
+    document.body.classList.add('preloading');
+
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+
+    // === DOM refs ===
+    const matrixCanvas = document.getElementById('matrixCanvas');
+    const particleBgCanvas = document.getElementById('preloaderParticles');
+    const glitchWrap = document.getElementById('preloaderGlitch');
+    const brandWrap = document.getElementById('preloaderBrand');
+    const brandCipher = document.getElementById('brandCipher');
+    const devPill = document.getElementById('devPill');
+    const shockwave = document.getElementById('shockwave');
+    const fillBar = document.getElementById('preloaderFill');
+    const pctText = document.getElementById('preloaderPct');
+    const statusText = document.getElementById('preloaderStatus');
+    const termStatus = document.getElementById('termStatus');
+    const skipBtn = document.getElementById('preloaderSkip');
+
+    let isFinished = false;
+    let animFrameMatrix, animFrameDots, animFrameProgress;
+    const totalDuration = 4200; // ms total duration
+    const startTime = performance.now();
+
+    // ─────────────────────────────────────
+    // MATRIX CODE RAIN
+    // ─────────────────────────────────────
+    function initMatrix() {
+        if (!matrixCanvas) return;
+        const mCtx = matrixCanvas.getContext('2d');
+        const resizeMatrix = () => {
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+        };
+        resizeMatrix();
+
+        const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz{}[]<>/\\|~`!@#$%^&*+=_-;';
+        const fontSize = 14;
+        const columns = Math.ceil(matrixCanvas.width / fontSize);
+        const drops = new Array(columns).fill(0);
+
+        // Randomize initial positions so the screen is immediately alive
+        for (let i = 0; i < drops.length; i++) {
+            drops[i] = Math.floor(Math.random() * (matrixCanvas.height / fontSize));
+        }
+
+        function drawMatrix() {
+            if (isFinished) return;
+            mCtx.fillStyle = 'rgba(4, 13, 20, 0.08)';
+            mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+
+            mCtx.font = `${fontSize}px 'Inter', monospace`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const char = chars[Math.floor(Math.random() * chars.length)];
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+
+                const r = Math.random();
+                if (r > 0.96) {
+                    mCtx.fillStyle = '#ffffff';
+                } else if (r > 0.8) {
+                    mCtx.fillStyle = '#00e5cc';
+                } else {
+                    mCtx.fillStyle = 'rgba(0, 171, 240, 0.75)';
+                }
+
+                mCtx.fillText(char, x, y);
+
+                if (y > matrixCanvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+
+            animFrameMatrix = requestAnimationFrame(drawMatrix);
+        }
+
+        drawMatrix();
+    }
+
+    // ─────────────────────────────────────
+    // FLOATING PARTICLES BACKGROUND
+    // ─────────────────────────────────────
+    function initPreloaderParticles() {
+        if (!particleBgCanvas) return;
+        const pCtx = particleBgCanvas.getContext('2d');
+        particleBgCanvas.width = window.innerWidth;
+        particleBgCanvas.height = window.innerHeight;
+
+        const dots = [];
+        const count = window.innerWidth < 768 ? 25 : 45;
+
+        for (let i = 0; i < count; i++) {
+            dots.push({
+                x: Math.random() * particleBgCanvas.width,
+                y: Math.random() * particleBgCanvas.height,
+                vx: (Math.random() - 0.5) * 1.0,
+                vy: (Math.random() - 0.5) * 1.0,
+                r: Math.random() * 2 + 0.6,
+                alpha: Math.random() * 0.45 + 0.15
+            });
+        }
+
+        function animateDots() {
+            if (isFinished) return;
+            pCtx.clearRect(0, 0, particleBgCanvas.width, particleBgCanvas.height);
+
+            for (let i = 0; i < dots.length; i++) {
+                const d = dots[i];
+                d.x += d.vx;
+                d.y += d.vy;
+
+                if (d.x < 0 || d.x > particleBgCanvas.width) d.vx *= -1;
+                if (d.y < 0 || d.y > particleBgCanvas.height) d.vy *= -1;
+
+                pCtx.beginPath();
+                pCtx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+                pCtx.fillStyle = `rgba(0, 171, 240, ${d.alpha})`;
+                pCtx.fill();
+
+                // Proximity connection lines
+                for (let j = i + 1; j < dots.length; j++) {
+                    const dx = d.x - dots[j].x;
+                    const dy = d.y - dots[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 110) {
+                        pCtx.beginPath();
+                        pCtx.moveTo(d.x, d.y);
+                        pCtx.lineTo(dots[j].x, dots[j].y);
+                        pCtx.strokeStyle = `rgba(0, 171, 240, ${(1 - dist / 110) * 0.2})`;
+                        pCtx.lineWidth = 0.5;
+                        pCtx.stroke();
+                    }
+                }
+            }
+
+            animFrameDots = requestAnimationFrame(animateDots);
+        }
+
+        animateDots();
+    }
+
+    // ─────────────────────────────────────
+    // CYBER CIPHER DECRYPTION
+    // Rapidly scrambles characters into "Hanan"
+    // ─────────────────────────────────────
+    function initCipherDecryption(callback) {
+        if (!brandCipher) { if (callback) callback(); return; }
+        const chars = brandCipher.querySelectorAll('.cipher-char');
+        const glyphs = '01#@$%&*<>~/\\{}[]+=_!?XYZQ';
+        const lockDelays = [200, 420, 640, 860, 1080]; // ms per character
+
+        chars.forEach((charEl, idx) => {
+            const target = charEl.getAttribute('data-char');
+            const targetTime = performance.now() + lockDelays[idx];
+
+            const scrambleInterval = setInterval(() => {
+                if (isFinished) {
+                    clearInterval(scrambleInterval);
+                    charEl.textContent = target;
+                    charEl.classList.add('locked');
+                    return;
+                }
+
+                if (performance.now() >= targetTime) {
+                    clearInterval(scrambleInterval);
+                    charEl.textContent = target;
+                    charEl.classList.add('locked');
+
+                    if (idx === chars.length - 1) {
+                        setTimeout(() => {
+                            if (callback) callback();
+                        }, 180);
+                    }
+                } else {
+                    charEl.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+                }
+            }, 35);
+        });
+    }
+
+    // ─────────────────────────────────────
+    // TELEMETRY & PROGRESS BAR
+    // ─────────────────────────────────────
+    function updateProgress() {
+        if (isFinished) return;
+        const now = performance.now();
+        const elapsed = now - startTime;
+        const pct = Math.min((elapsed / totalDuration) * 100, 100);
+
+        if (fillBar) fillBar.style.width = `${pct}%`;
+        if (pctText) pctText.textContent = `${Math.round(pct)}%`;
+
+        if (pct < 35) {
+            if (statusText) statusText.textContent = 'INITIALIZING SYSTEM...';
+        } else if (pct < 70) {
+            if (statusText) statusText.textContent = 'DECRYPTING IDENTITY...';
+        } else if (pct < 90) {
+            if (statusText) statusText.textContent = 'SYNCHRONIZING ASSETS...';
+        } else {
+            if (statusText) statusText.textContent = 'ACCESS GRANTED';
+        }
+
+        if (pct < 100) {
+            animFrameProgress = requestAnimationFrame(updateProgress);
+        }
+    }
+
+    // ─────────────────────────────────────
+    // PHASE ORCHESTRATOR
+    // ─────────────────────────────────────
+    function runPreloader() {
+        initMatrix();
+        initPreloaderParticles();
+        updateProgress();
+
+        // Phase 1: Glitch text (0 - 1300ms)
+        // Phase 2: Cipher decryption (1300ms - 2700ms)
+        setTimeout(() => {
+            if (isFinished) return;
+            if (glitchWrap) glitchWrap.classList.add('hidden');
+
+            setTimeout(() => {
+                if (isFinished) return;
+                if (brandWrap) brandWrap.classList.add('active');
+
+                initCipherDecryption(() => {
+                    if (isFinished) return;
+                    // Phase 3: Badge pop + shockwave (2700ms - 3800ms)
+                    if (devPill) devPill.classList.add('pop');
+                    if (shockwave) shockwave.classList.add('blast');
+
+                    // Phase 4: Exit sequence — hold 1.5s to showcase final brand
+                    setTimeout(() => {
+                        exitPreloader();
+                    }, 1800);
+                });
+            }, 250);
+        }, 1300);
+    }
+
+    // ─────────────────────────────────────
+    // EXIT SEQUENCE
+    // ─────────────────────────────────────
+    function exitPreloader() {
+        if (isFinished) return;
+        isFinished = true;
+
+        if (fillBar) fillBar.style.width = '100%';
+        if (pctText) pctText.textContent = '100%';
+        if (statusText) statusText.textContent = 'SYSTEM ONLINE';
+
+        setTimeout(() => {
+            preloader.classList.add('fade-out');
+
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                document.body.classList.remove('preloading');
+
+                cancelAnimationFrame(animFrameMatrix);
+                cancelAnimationFrame(animFrameDots);
+                cancelAnimationFrame(animFrameProgress);
+            }, 1000);
+        }, 200);
+    }
+
+    // ─────────────────────────────────────
+    // SKIP PRELOADER (User Control)
+    // ─────────────────────────────────────
+    function skipPreloader() {
+        if (isFinished) return;
+        exitPreloader();
+    }
+
+    if (skipBtn) {
+        skipBtn.addEventListener('click', skipPreloader);
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            skipPreloader();
+        }
+    });
+
+    // ─────────────────────────────────────
+    // LAUNCH
+    // ─────────────────────────────────────
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runPreloader);
+    } else {
+        runPreloader();
+    }
+})();
+
+// ==========================================
 // HANAN DEV — PORTFOLIO JAVASCRIPT ENGINE
 // Interactive Particles, Rolex Scroll HUD,
 // 3D Tilt Effects, Dynamic Theme Engine
 // ==========================================
+
 
 // ------------------------------------------
 // CLIENT-SIDE SECURITY ENGINE

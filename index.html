@@ -22,6 +22,76 @@
 </head>
 
 <body>
+  <!-- ═══════════════════════════════════════════════════
+       CINEMATIC PRELOADER — Multi-Phase Loading Experience
+       ═══════════════════════════════════════════════════ -->
+  <div id="preloader" class="preloader">
+    <!-- Matrix code rain canvas -->
+    <canvas id="matrixCanvas" class="preloader-matrix"></canvas>
+
+    <!-- Floating particles background -->
+    <canvas id="preloaderParticles" class="preloader-particles-bg"></canvas>
+
+    <!-- Cyber HUD Top Bar -->
+    <div class="preloader-top-hud">
+      <div class="hud-tag"><span class="hud-dot"></span> SYSTEM_ONLINE // SECURE_PORT</div>
+      <div class="hud-tag hud-center-tag">PORTFOLIO v2.6 // ARCHITECTURE</div>
+      <button class="preloader-skip-btn" id="preloaderSkip" aria-label="Skip preloader">SKIP [ESC] <span>&rarr;</span></button>
+    </div>
+
+    <!-- Tech stack ambient floating badges -->
+    <div class="preloader-tech-cloud" id="techCloud">
+      <span class="tech-tag" style="--left: 10%; --top: 22%; --d: 0s;">React.js</span>
+      <span class="tech-tag" style="--left: 84%; --top: 18%; --d: 0.6s;">Node.js</span>
+      <span class="tech-tag" style="--left: 14%; --top: 76%; --d: 1.2s;">ASP.NET Core</span>
+      <span class="tech-tag" style="--left: 82%; --top: 78%; --d: 0.3s;">C#</span>
+      <span class="tech-tag" style="--left: 6%; --top: 48%; --d: 0.9s;">JavaScript</span>
+      <span class="tech-tag" style="--left: 88%; --top: 46%; --d: 1.5s;">PHP / MySQL</span>
+      <span class="tech-tag" style="--left: 22%; --top: 12%; --d: 0.4s;">RESTful APIs</span>
+      <span class="tech-tag" style="--left: 74%; --top: 86%; --d: 1.1s;">Full-Stack</span>
+    </div>
+
+    <!-- Central content stage -->
+    <div class="preloader-center">
+      <!-- Phase 1: Cyber Glitch Loading Title -->
+      <div class="preloader-glitch-wrap" id="preloaderGlitch">
+        <div class="preloader-code-badge">
+          <span class="bracket">[</span> <span class="term-status" id="termStatus">INITIALIZING CORE ASSETS...</span> <span class="bracket">]</span>
+        </div>
+        <div class="preloader-glitch" data-text="HANAN RAZA">HANAN RAZA</div>
+        <div class="preloader-sub-glitch">FULL-STACK DEVELOPER &amp; DESIGNER</div>
+      </div>
+
+      <!-- Phase 2 & 3: Cyber Decryption into Brand Wordmark + Dev Badge -->
+      <div class="preloader-brand-wrap" id="preloaderBrand">
+        <div class="preloader-assembled-name" id="brandCipher">
+          <span class="cipher-char" data-char="H">_</span>
+          <span class="cipher-char" data-char="a">_</span>
+          <span class="cipher-char" data-char="n">_</span>
+          <span class="cipher-char" data-char="a">_</span>
+          <span class="cipher-char" data-char="n">_</span>
+        </div>
+        <div class="preloader-dev-pill" id="devPill">
+          <span>Dev</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shockwave ring overlay -->
+    <div class="preloader-shockwave" id="shockwave"></div>
+
+    <!-- Bottom progress & telemetry -->
+    <div class="preloader-progress-wrap" id="preloaderProgress">
+      <div class="preloader-status-bar">
+        <span class="status-label" id="preloaderStatus">INITIALIZING SYSTEM</span>
+        <span class="preloader-progress-text" id="preloaderPct">0%</span>
+      </div>
+      <div class="preloader-progress-track">
+        <div class="preloader-progress-fill" id="preloaderFill"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
