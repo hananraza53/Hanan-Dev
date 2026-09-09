@@ -366,7 +366,7 @@ body.preloading {
     margin-top: -45px;
     margin-left: -45px;
     border-radius: 50%;
-    border: 2px solid rgba(0, 229, 204, 0.95);
+    border: 5px solid rgba(0, 229, 204, 0.95);
     box-shadow: 0 0 20px rgba(0, 229, 204, 0.6), inset 0 0 15px rgba(0, 171, 240, 0.4);
     z-index: 30;
     opacity: 0;
@@ -377,7 +377,7 @@ body.preloading {
 }
 
 .preloader-shockwave.blast {
-    animation: shockwaveBlast 1.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: shockwaveBlast 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes shockwaveBlast {
@@ -392,7 +392,7 @@ body.preloading {
         opacity: 0.5;
     }
     100% {
-        transform: translate3d(0, 0, 0) scale(26);
+        transform: translate3d(0, 0, 0) scale(20);
         opacity: 0;
         visibility: hidden;
     }
