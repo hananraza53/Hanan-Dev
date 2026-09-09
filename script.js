@@ -243,10 +243,10 @@
                         }, { once: true });
                     }
 
-                    // Phase 4: Exit sequence — hold 1.8s to showcase final brand
+                    // Phase 4: Exit sequence — hold 1.5s to showcase final brand
                     setTimeout(() => {
                         exitPreloader();
-                    }, 1800);
+                    }, 1500);
                 });
             }, 250);
         }, 1300);
@@ -397,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.setAttribute('data-theme', theme);
         }
         localStorage.setItem('selected-theme', theme);
-        
+
         // Notify particle system of theme color change
         setTimeout(updateParticleColor, 100);
     };

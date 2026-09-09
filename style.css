@@ -377,7 +377,7 @@ body.preloading {
 }
 
 .preloader-shockwave.blast {
-    animation: shockwaveBlast 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: shockwaveBlast 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes shockwaveBlast {
