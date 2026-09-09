@@ -483,7 +483,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentScrollY = 0;
     let targetScrollY = 0;
     let isLerping = false;
-    const lerpFactor = 0.055; // Silky smooth deceleration (~0.05 - 0.06)
+    const lerpFactor = 0.03; // Silky smooth deceleration (~0.05 - 0.06)
 
     if (!isPreloadActive()) {
         currentScrollY = window.scrollY || window.pageYOffset;
@@ -610,7 +610,7 @@ document.addEventListener('DOMContentLoaded', () => {
             delta *= window.innerHeight; // Page mode
         }
 
-        targetScrollY += delta * 1.15;
+        targetScrollY += delta * 0.5;
         targetScrollY = Math.max(0, Math.min(targetScrollY, getMaxScroll()));
 
         startLerpLoop();
