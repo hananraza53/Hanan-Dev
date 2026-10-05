@@ -1,0 +1,1084 @@
+<!doctype html>
+<html lang="en" class="preloading">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Muhammad Hanan Raza — Full-Stack Web Developer specializing in HTML, CSS, JavaScript, PHP, C#, ASP.NET Core, React.js & Node.js. View my projects and get in touch." />
+  <meta name="google-site-verification" content="NLtRPNss2LsttbU8lN4yjBYsywCBW2nt1gzhuINekr0" />
+  <title>Hanan Dev — Full-Stack Developer & Designer</title>
+
+  <!-- Early Preloader Scroll Lock -->
+  <script>
+    document.documentElement.classList.add('preloading');
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- box icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+</head>
+
+<body class="preloading">
+  <!-- ═══════════════════════════════════════════════════
+       CINEMATIC PRELOADER — Multi-Phase Loading Experience
+       ═══════════════════════════════════════════════════ -->
+  <div id="preloader" class="preloader">
+    <!-- Matrix code rain canvas -->
+    <canvas id="matrixCanvas" class="preloader-matrix"></canvas>
+
+    <!-- Floating particles background -->
+    <canvas id="preloaderParticles" class="preloader-particles-bg"></canvas>
+
+    <!-- Cyber HUD Top Bar -->
+    <div class="preloader-top-hud">
+      <div class="hud-tag"><span class="hud-dot"></span> SYSTEM_ONLINE // SECURE_PORT</div>
+      <div class="hud-tag hud-center-tag">PORTFOLIO v2.6 // ARCHITECTURE</div>
+      <button class="preloader-skip-btn" id="preloaderSkip" aria-label="Skip preloader">SKIP [ESC]
+        <span>&rarr;</span></button>
+    </div>
+
+    <!-- Tech stack ambient floating badges -->
+    <div class="preloader-tech-cloud" id="techCloud">
+      <span class="tech-tag" style="--left: 10%; --top: 22%; --d: 0s;">React.js</span>
+      <span class="tech-tag" style="--left: 84%; --top: 18%; --d: 0.6s;">Node.js</span>
+      <span class="tech-tag" style="--left: 14%; --top: 76%; --d: 1.2s;">ASP.NET Core</span>
+      <span class="tech-tag" style="--left: 82%; --top: 78%; --d: 0.3s;">C#</span>
+      <span class="tech-tag" style="--left: 6%; --top: 48%; --d: 0.9s;">JavaScript</span>
+      <span class="tech-tag" style="--left: 88%; --top: 46%; --d: 1.5s;">PHP / MySQL</span>
+      <span class="tech-tag" style="--left: 22%; --top: 12%; --d: 0.4s;">RESTful APIs</span>
+      <span class="tech-tag" style="--left: 74%; --top: 86%; --d: 1.1s;">Full-Stack</span>
+    </div>
+
+    <!-- Central content stage -->
+    <div class="preloader-center">
+      <!-- Phase 1: Cyber Glitch Loading Title -->
+      <div class="preloader-glitch-wrap" id="preloaderGlitch">
+        <div class="preloader-code-badge">
+          <span class="bracket">[</span> <span class="term-status" id="termStatus">INITIALIZING CORE ASSETS...</span>
+          <span class="bracket">]</span>
+        </div>
+        <div class="preloader-glitch" data-text="HANAN RAZA">HANAN RAZA</div>
+        <div class="preloader-sub-glitch">FULL-STACK DEVELOPER &amp; DESIGNER</div>
+      </div>
+
+      <!-- Phase 2 & 3: Cyber Decryption into Brand Wordmark + Dev Badge -->
+      <div class="preloader-brand-wrap" id="preloaderBrand">
+        <div class="preloader-assembled-name" id="brandCipher">
+          <span class="cipher-char" data-char="H">_</span>
+          <span class="cipher-char" data-char="a">_</span>
+          <span class="cipher-char" data-char="n">_</span>
+          <span class="cipher-char" data-char="a">_</span>
+          <span class="cipher-char" data-char="n">_</span>
+        </div>
+        <div class="preloader-dev-pill" id="devPill">
+          <span>Dev</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shockwave ring overlay -->
+    <div class="preloader-shockwave" id="shockwave"></div>
+
+    <!-- Bottom progress & telemetry -->
+    <div class="preloader-progress-wrap" id="preloaderProgress">
+      <div class="preloader-status-bar">
+        <span class="status-label" id="preloaderStatus">INITIALIZING SYSTEM</span>
+        <span class="preloader-progress-text" id="preloaderPct">0%</span>
+      </div>
+      <div class="preloader-progress-track">
+        <div class="preloader-progress-fill" id="preloaderFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Progress Bar -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Particle Canvas (Hero Background) -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- header design -->
+  <header class="header">
+    <a href="#home" class="logo" aria-label="Hanan Dev - Home">
+      <span class="logo-svg-wrap">
+        <!--
+          LOGO: "Hanan" bold wordmark + "Dev" glowing pill badge
+          No code symbols. Pure premium typographic logo.
+        -->
+        <svg class="logo-svg" viewBox="0 0 160 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <!-- Pill gradient fill -->
+            <linearGradient id="lgPill" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="var(--main-color)" stop-opacity="1" />
+              <stop offset="100%" stop-color="#00e5cc" stop-opacity="1" />
+            </linearGradient>
+            <!-- Wordmark gradient -->
+            <linearGradient id="lgName" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="var(--text-color)" />
+              <stop offset="100%" stop-color="#cceeff" />
+            </linearGradient>
+            <!-- Glow filter for pill -->
+            <filter id="pillGlow" x="-25%" y="-40%" width="150%" height="180%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <!-- Soft glow for name text -->
+            <filter id="nameGlow" x="-5%" y="-20%" width="110%" height="140%">
+              <feGaussianBlur stdDeviation="1.2" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- ══ "Hanan" bold wordmark ══ -->
+          <text class="logo-name" x="0" y="32" font-size="26" font-family="'Inter','Poppins',sans-serif"
+            font-weight="800" letter-spacing="0.5" fill="url(#lgName)" filter="url(#nameGlow)">Hanan</text>
+
+          <!-- ══ "Dev" pill badge (starts right after Hanan ~78px + 8gap = 86) ══ -->
+          <!-- Pill background -->
+          <rect class="logo-pill" x="86" y="7" width="54" height="28" rx="14" ry="14" fill="url(#lgPill)"
+            filter="url(#pillGlow)" />
+          <!-- Pill top-shine highlight -->
+          <rect class="logo-pill-shine" x="86" y="7" width="54" height="14" rx="14" ry="14" fill="white"
+            opacity="0.15" />
+          <!-- "Dev" text centred in pill -->
+          <text class="logo-dev" x="113" y="27" font-size="15" font-family="'Inter','Poppins',sans-serif"
+            font-weight="700" letter-spacing="2" text-anchor="middle" fill="#081b29">Dev</text>
+        </svg>
+      </span>
+    </a>
+
+    <div class="theme-switcher" id="theme-switcher">
+      <i class='bx bx-palette' id="theme-btn"></i>
+      <div class="theme-menu">
+        <div class="theme-option" data-set-theme="default" style="background: #081b29; border: 2px solid #00abf0;"
+          title="Default Dark"></div>
+        <div class="theme-option" data-set-theme="light" style="background: #f4f4f4; border: 2px solid #00abf0;"
+          title="Light Mode"></div>
+        <div class="theme-option" data-set-theme="purple" style="background: #1a0b2e; border: 2px solid #ff2a7a;"
+          title="Midnight Purple"></div>
+        <div class="theme-option" data-set-theme="forest" style="background: #051f0f; border: 2px solid #00ff88;"
+          title="Forest Green"></div>
+        <div class="theme-option" data-set-theme="sunset" style="background: #2a0808; border: 2px solid #ffaa00;"
+          title="Sunset Crimson"></div>
+      </div>
+    </div>
+
+    <div class="bx bx-menu" id="menu-icon"></div>
+
+    <nav class="navbar">
+      <a href="#home" class="active">Home</a>
+      <!-- <a href="#about">About</a> -->
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+
+      <span class="active-nav"></span>
+      <span class="animate" style="--i: 2"></span>
+    </nav>
+  </header>
+
+  <!-- home section design -->
+  <section class="home show-animate" id="home">
+    <div class="home-content">
+      <h1>
+        Hi, I'm <span>Muhammad Hanan Raza</span><span class="animate" style="--i: 2"></span>
+      </h1>
+      <div class="text-animate">
+        <h3>Full-Stack Web Developer</h3>
+      </div>
+      <p>
+        I'm Muhammad Hanan Raza — a web developer focused on building clean, fast, and user-friendly websites.
+
+        I specialize in creating responsive and dynamic web applications using HTML, CSS, JavaScript, PHP, MySQL, C#,
+        ASP.NET Core, React.js, and Node.js.
+
+        I value simplicity in design, reliability in functionality, and continuous learning to ensure every project is
+        better than the last.
+
+        <span class="animate" style="--i: 4"></span>
+      </p>
+
+      <div class="btn-box">
+        <a href="#contact" class="btn">Hire Me</a>
+        <a href="#contact" class="btn">Let's Talk</a>
+        <a href="M.Hanan Raza CV.pdf" class="btn" download>Download CV</a>
+        <span class="animate" style="--i: 5"></span>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num" data-count="11">11+</span>
+          <span class="stat-label">Live Projects</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num" data-count="3">3+</span>
+          <span class="stat-label">Years Learning</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Responsive</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-sci">
+      <!-- Netlify / live projects -->
+      <a href="https://hanan-dev.netlify.app"><i class="bx bx-globe"></i></a>
+      <!-- Indeed -->
+      <!-- <a href="https://profile.indeed.com/p/mr-dc6m483"><i class="bx bx-briefcase"></i></a> -->
+      <!-- Linkedin -->
+      <a href="https://www.linkedin.com/in/muhammad-hanan-raza"><i class="bx bxl-linkedin"></i></a>
+      <!--  Github -->
+      <a href="https://github.com/hananraza53"><i class="bx bxl-github"></i></a>
+      <span class="animate" style="--i: 6"></span>
+    </div>
+
+    <div class="home-img-wrapper">
+      <div class="home-img-inner"></div>
+      <span class="animate home-img" style="--i: 7"></span>
+    </div>
+  </section>
+
+  <!-- About Section Design -->
+  <!-- <section class="about" id="about">
+    <h2 class="heading">
+      About <span>Me</span><span class="animate scroll" style="--i: 1"></span>
+    </h2>
+
+    <div class="about-img">
+      <img src="images/pp.png" alt="" />
+      <span class="circle-spin"></span>
+      <span class="animate scroll" style="--i: 2"></span>
+    </div>
+
+    <div class="about-content">
+      <h3>
+        Greetings! I'm thrilled you're here.<span class="animate scroll" style="--i: 3"></span>
+      </h3>
+      <p>
+        I'm Muhammad Hanan Raza — a web developer who builds websites that are
+        simple, fast, and easy to use.<br />
+        I focus on clean design, reliable functionality, and keep learning to
+        make every project better than the last.<br />
+        <span class="animate scroll" style="--i: 4"></span>
+      </p>
+
+      <div class="btn-box btns">
+        <a href="#contact" class="btn">Get in Touch</a>
+        <span class="animate scroll" style="--i: 5"></span>
+      </div>
+    </div>
+  </section> -->
+
+  <section class="education" id="education">
+    <h2 class="heading">
+      My <span>Journey</span>
+      <span class="animate scroll" style="--i: 1"></span>
+    </h2>
+
+    <!-- ═══ TIMELINE SUBTITLE ═══ -->
+    <p class="journey-subtitle">
+      <span class="jsubtle-bracket">&lt;</span>
+      From student to full-stack developer — a timeline of growth
+      <span class="jsubtle-bracket">/&gt;</span>
+    </p>
+
+    <!-- ═══ DUAL TIMELINE ═══ -->
+    <div class="journey-timeline">
+
+      <!-- ── LEFT COLUMN: Education ── -->
+      <div class="journey-col journey-col--left">
+        <div class="journey-col-header">
+          <span class="journey-col-icon"><i class="bx bxs-graduation"></i></span>
+          <h3>Education</h3>
+        </div>
+
+        <!-- Card 1 -->
+        <div class="journey-card jcard--edu" style="--i:2">
+          <div class="jcard-node"></div>
+          <div class="jcard-year-badge">2015 – 2019</div>
+          <div class="jcard-body">
+            <div class="jcard-icon"><i class="bx bxs-school"></i></div>
+            <div class="jcard-text">
+              <h4>High School</h4>
+              <span class="jcard-org">Mahd-al-Uloom School · Jeddah, Saudi Arabia</span>
+              <p>Foundation in science & technology that ignited my passion for computing and logic-driven problem
+                solving.</p>
+              <div class="jcard-tags">
+                <span>Science</span><span>Mathematics</span><span>Computing</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="journey-card jcard--edu" style="--i:3">
+          <div class="jcard-node"></div>
+          <div class="jcard-year-badge">2020 – 2022</div>
+          <div class="jcard-body">
+            <div class="jcard-icon"><i class="bx bxs-book-open"></i></div>
+            <div class="jcard-text">
+              <h4>Intermediate — Pre-Engineering</h4>
+              <span class="jcard-org">Govt. Degree College · Karachi, Pakistan</span>
+              <p>Pre-Engineering studies sharpened my analytical thinking and laid the groundwork for software
+                architecture.</p>
+              <div class="jcard-tags">
+                <span>Physics</span><span>Engineering</span><span>Analytics</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="journey-card jcard--edu" style="--i:4">
+          <div class="jcard-node jcard-node--active"></div>
+          <div class="jcard-year-badge jcard-year-badge--now">2023 – Present</div>
+          <div class="jcard-body">
+            <div class="jcard-icon"><i class="bx bxs-devices"></i></div>
+            <div class="jcard-text">
+              <h4>CPISM · DISM · HDSE-I</h4>
+              <span class="jcard-org">Aptech Computer Education</span>
+              <p>Intensive practical training across full-stack development — from front-end to backend systems and
+                databases.</p>
+              <div class="jcard-tags">
+                <span>HTML/CSS</span><span>JavaScript</span><span>PHP</span>
+                <span>C#</span><span>ASP.NET Core</span><span>MySQL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /left col -->
+
+      <!-- ── CENTER DIVIDER ── -->
+      <div class="journey-divider">
+        <div class="jdiv-line"></div>
+        <div class="jdiv-pulse"></div>
+      </div>
+
+      <!-- ── RIGHT COLUMN: Experience / Tech ── -->
+      <div class="journey-col journey-col--right">
+        <div class="journey-col-header">
+          <span class="journey-col-icon"><i class="bx bxs-rocket"></i></span>
+          <h3>Experience</h3>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="journey-card jcard--exp" style="--i:2">
+          <div class="jcard-node"></div>
+          <div class="jcard-year-badge">2021 – 2022</div>
+          <div class="jcard-body">
+            <div class="jcard-icon"><i class="bx bxl-html5"></i></div>
+            <div class="jcard-text">
+              <h4>Frontend Foundations</h4>
+              <span class="jcard-org">Self-built Projects</span>
+              <p>Mastered HTML5, CSS3 and vanilla JavaScript by building 5+ responsive real-world websites with
+                animations and DOM manipulation.</p>
+              <div class="jcard-tags">
+                <span>HTML5</span><span>CSS3</span><span>JavaScript</span><span>Responsive</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="journey-card jcard--exp" style="--i:3">
+          <div class="jcard-node"></div>
+          <div class="jcard-year-badge">2022 – 2023</div>
+          <div class="jcard-body">
+            <div class="jcard-icon"><i class="bx bxl-php"></i></div>
+            <div class="jcard-text">
+              <h4>Backend & Databases</h4>
+              <span class="jcard-org">PHP · MySQL · ASP.NET Core</span>
+              <p>Built full-stack web applications with server-side logic, CRUD operations, RESTful APIs and relational
+                database design.</p>
+              <div class="jcard-tags">
+                <span>PHP</span><span>MySQL</span><span>REST APIs</span><span>C#</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="journey-card jcard--exp" style="--i:4">
+          <div class="jcard-node jcard-node--active"></div>
+          <div class="jcard-year-badge jcard-year-badge--now">2023 – Present</div>
+          <div class="jcard-body">
+            <div class="jcard-icon"><i class="bx bxl-react"></i></div>
+            <div class="jcard-text">
+              <h4>Full-Stack · Modern Stack</h4>
+              <span class="jcard-org">React · Node.js · Live Deployments</span>
+              <p>Developing production-grade apps with React.js, Node.js and Express. Deployed 11+ live projects with
+                modern tooling and CI/CD workflows.</p>
+              <div class="jcard-tags">
+                <span>React.js</span><span>Node.js</span><span>Express</span>
+                <span>Netlify</span><span>Full-Stack</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /right col -->
+
+    </div><!-- /journey-timeline -->
+
+    <!-- ── STATS ROW ── -->
+    <div class="journey-stats" style="--i:5">
+      <div class="jstat">
+        <span class="jstat-num">3+</span>
+        <span class="jstat-label">Years Coding</span>
+      </div>
+      <div class="jstat-sep"></div>
+      <div class="jstat">
+        <span class="jstat-num">11+</span>
+        <span class="jstat-label">Live Projects</span>
+      </div>
+      <div class="jstat-sep"></div>
+      <div class="jstat">
+        <span class="jstat-num">12+</span>
+        <span class="jstat-label">Technologies</span>
+      </div>
+      <div class="jstat-sep"></div>
+      <div class="jstat">
+        <span class="jstat-num">100%</span>
+        <span class="jstat-label">Self-Driven</span>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- skills section design -->
+  <section class="skills" id="skills">
+    <h2 class="heading">
+      My <span>Skills</span><span class="animate scroll" style="--i: 1"></span>
+    </h2>
+    <p class="skills-subtitle">
+      <span class="jsubtle-bracket">&lt;</span> Technologies I build with <span class="jsubtle-bracket">/&gt;</span>
+    </p>
+
+    <!-- ── Category filter tabs ── -->
+    <div class="sk-tabs-wrap"><div class="sk-tabs" role="tablist" id="skTabs">
+      <button class="sk-tab active" data-sk="all">All</button>
+      <button class="sk-tab" data-sk="frontend">Frontend</button>
+      <button class="sk-tab" data-sk="backend">Backend</button>
+      <button class="sk-tab" data-sk="database">Database</button>
+      <button class="sk-tab" data-sk="tools">Tools &amp; Other</button>
+    </div></div><!-- /sk-tabs-wrap -->
+
+    <!-- ── Skills grid ── -->
+    <div class="sk-grid" id="skGrid">
+
+      <!-- FRONTEND -->
+      <div class="sk-card" data-cat="frontend">
+        <div class="sk-ring" style="--p:90;--c:#e34f26"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:90 100"/></svg><span class="sk-pct">90%</span></div>
+        <i class="bx bxl-html5 sk-icon"></i>
+        <span class="sk-name">HTML5</span>
+        <span class="sk-cat-badge frontend">Frontend</span>
+      </div>
+
+      <div class="sk-card" data-cat="frontend">
+        <div class="sk-ring" style="--p:78;--c:#1572b6"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:78 100"/></svg><span class="sk-pct">78%</span></div>
+        <i class="bx bxl-css3 sk-icon"></i>
+        <span class="sk-name">CSS3</span>
+        <span class="sk-cat-badge frontend">Frontend</span>
+      </div>
+
+      <div class="sk-card" data-cat="frontend">
+        <div class="sk-ring" style="--p:93;--c:#f7df1e"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:93 100"/></svg><span class="sk-pct">93%</span></div>
+        <i class="bx bxl-javascript sk-icon"></i>
+        <span class="sk-name">JavaScript</span>
+        <span class="sk-cat-badge frontend">Frontend</span>
+      </div>
+
+      <div class="sk-card" data-cat="frontend">
+        <div class="sk-ring" style="--p:65;--c:#61dafb"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:65 100"/></svg><span class="sk-pct">65%</span></div>
+        <i class="bx bxl-react sk-icon"></i>
+        <span class="sk-name">React.js</span>
+        <span class="sk-cat-badge frontend">Frontend</span>
+      </div>
+
+      <div class="sk-card" data-cat="frontend">
+        <div class="sk-ring" style="--p:95;--c:#06b6d4"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:95 100"/></svg><span class="sk-pct">95%</span></div>
+        <i class="bx bxl-tailwind-css sk-icon"></i>
+        <span class="sk-name">TailwindCSS</span>
+        <span class="sk-cat-badge frontend">Frontend</span>
+      </div>
+
+      <div class="sk-card" data-cat="frontend">
+        <div class="sk-ring" style="--p:67;--c:#7952b3"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:67 100"/></svg><span class="sk-pct">67%</span></div>
+        <i class="bx bxl-bootstrap sk-icon"></i>
+        <span class="sk-name">Bootstrap</span>
+        <span class="sk-cat-badge frontend">Frontend</span>
+      </div>
+
+      <!-- BACKEND -->
+      <div class="sk-card" data-cat="backend">
+        <div class="sk-ring" style="--p:77;--c:#8892be"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:77 100"/></svg><span class="sk-pct">77%</span></div>
+        <i class="bx bxl-php sk-icon"></i>
+        <span class="sk-name">PHP</span>
+        <span class="sk-cat-badge backend">Backend</span>
+      </div>
+
+      <div class="sk-card" data-cat="backend">
+        <div class="sk-ring" style="--p:80;--c:#239120"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:80 100"/></svg><span class="sk-pct">80%</span></div>
+        <i class="bx bxl-microsoft sk-icon"></i>
+        <span class="sk-name">C#</span>
+        <span class="sk-cat-badge backend">Backend</span>
+      </div>
+
+      <div class="sk-card" data-cat="backend">
+        <div class="sk-ring" style="--p:85;--c:#512bd4"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:85 100"/></svg><span class="sk-pct">85%</span></div>
+        <i class="bx bx-code-curly sk-icon"></i>
+        <span class="sk-name">ASP.NET Core</span>
+        <span class="sk-cat-badge backend">Backend</span>
+      </div>
+
+      <div class="sk-card" data-cat="backend">
+        <div class="sk-ring" style="--p:60;--c:#68a063"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:60 100"/></svg><span class="sk-pct">60%</span></div>
+        <i class="bx bxl-nodejs sk-icon"></i>
+        <span class="sk-name">Node.js</span>
+        <span class="sk-cat-badge backend">Backend</span>
+      </div>
+
+      <div class="sk-card" data-cat="backend">
+        <div class="sk-ring" style="--p:60;--c:#00d4aa"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:60 100"/></svg><span class="sk-pct">60%</span></div>
+        <i class="bx bx-server sk-icon"></i>
+        <span class="sk-name">Express.js</span>
+        <span class="sk-cat-badge backend">Backend</span>
+      </div>
+
+      <div class="sk-card" data-cat="backend">
+        <div class="sk-ring" style="--p:60;--c:#f05340"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:60 100"/></svg><span class="sk-pct">60%</span></div>
+        <i class="bx bxl-laravel sk-icon"></i>
+        <span class="sk-name">Laravel</span>
+        <span class="sk-cat-badge backend">Backend</span>
+      </div>
+
+      <!-- DATABASE -->
+      <div class="sk-card" data-cat="database">
+        <div class="sk-ring" style="--p:75;--c:#4479a1"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:75 100"/></svg><span class="sk-pct">75%</span></div>
+        <i class="bx bx-data sk-icon"></i>
+        <span class="sk-name">MySQL</span>
+        <span class="sk-cat-badge database">Database</span>
+      </div>
+
+      <div class="sk-card" data-cat="database">
+        <div class="sk-ring" style="--p:80;--c:#cc2927"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:80 100"/></svg><span class="sk-pct">80%</span></div>
+        <i class="bx bx-data sk-icon"></i>
+        <span class="sk-name">MSSQL</span>
+        <span class="sk-cat-badge database">Database</span>
+      </div>
+
+      <div class="sk-card" data-cat="database">
+        <div class="sk-ring" style="--p:60;--c:#47a248"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:60 100"/></svg><span class="sk-pct">60%</span></div>
+        <i class="bx bxl-mongodb sk-icon"></i>
+        <span class="sk-name">MongoDB</span>
+        <span class="sk-cat-badge database">Database</span>
+      </div>
+
+      <!-- TOOLS -->
+      <div class="sk-card" data-cat="tools">
+        <div class="sk-ring" style="--p:88;--c:#f05032"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:88 100"/></svg><span class="sk-pct">88%</span></div>
+        <i class="bx bxl-git sk-icon"></i>
+        <span class="sk-name">Git &amp; GitHub</span>
+        <span class="sk-cat-badge tools">Tools</span>
+      </div>
+
+      <div class="sk-card" data-cat="tools">
+        <div class="sk-ring" style="--p:96;--c:#00abf0"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:96 100"/></svg><span class="sk-pct">96%</span></div>
+        <i class="bx bxs-paint sk-icon"></i>
+        <span class="sk-name">Web Design</span>
+        <span class="sk-cat-badge tools">Tools</span>
+      </div>
+
+      <div class="sk-card" data-cat="tools">
+        <div class="sk-ring" style="--p:90;--c:#ff6b6b"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:90 100"/></svg><span class="sk-pct">90%</span></div>
+        <i class="bx bx-devices sk-icon"></i>
+        <span class="sk-name">Responsive UI</span>
+        <span class="sk-cat-badge tools">Tools</span>
+      </div>
+
+      <div class="sk-card" data-cat="tools">
+        <div class="sk-ring" style="--p:85;--c:#a259ff"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:85 100"/></svg><span class="sk-pct">85%</span></div>
+        <i class="bx bxs-pencil sk-icon"></i>
+        <span class="sk-name">UI/UX Design</span>
+        <span class="sk-cat-badge tools">Tools</span>
+      </div>
+
+      <div class="sk-card" data-cat="tools">
+        <div class="sk-ring" style="--p:90;--c:#ffd700"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:90 100"/></svg><span class="sk-pct">90%</span></div>
+        <i class="bx bx-bulb sk-icon"></i>
+        <span class="sk-name">Problem Solving</span>
+        <span class="sk-cat-badge tools">Tools</span>
+      </div>
+
+      <div class="sk-card" data-cat="tools">
+        <div class="sk-ring" style="--p:75;--c:#00e5cc"><svg viewBox="0 0 36 36"><circle class="sk-ring-bg" cx="18" cy="18" r="15.9"/><circle class="sk-ring-fill" cx="18" cy="18" r="15.9" style="stroke-dasharray:75 100"/></svg><span class="sk-pct">75%</span></div>
+        <i class="bx bxs-network-chart sk-icon"></i>
+        <span class="sk-name">REST APIs</span>
+        <span class="sk-cat-badge tools">Tools</span>
+      </div>
+
+    </div><!-- /sk-grid -->
+
+    <!-- ── Tech strip ── -->
+    <div class="sk-strip">
+      <span class="sk-strip-label">Also worked with:</span>
+      <div class="sk-strip-tags">
+        <span>Three.js</span><span>WebGL</span><span>GSAP</span>
+        <span>Netlify</span><span>Vercel</span><span>IIS</span>
+        <span>Postman</span><span>VS Code</span><span>Visual Studio</span>
+        <span>Figma</span><span>npm</span><span>JWT</span>
+      </div>
+    </div>
+
+  </section>
+
+
+    <!-- projects section design -->
+  <section class="projects" id="projects">
+    <h2 class="heading">
+      My <span>Projects</span><span class="animate scroll" style="--i: 1"></span>
+    </h2>
+
+    <!-- ── Project Category Tabs ── -->
+    <div class="proj-tabs-wrap">
+      <div class="proj-tabs" role="tablist" aria-label="Project categories">
+        <button class="proj-tab active" id="tab-fullstack" role="tab" aria-selected="true"
+          aria-controls="panel-fullstack" data-panel="fullstack">
+          <i class="bx bx-server"></i>
+          <span>Full-Stack</span>
+          <em class="tab-count">3</em>
+        </button>
+        <button class="proj-tab" id="tab-3d" role="tab" aria-selected="false" aria-controls="panel-3d" data-panel="3d">
+          <i class="bx bx-cube-alt"></i>
+          <span>3D &amp; Motion</span>
+          <em class="tab-count">5</em>
+        </button>
+        <button class="proj-tab" id="tab-frontend" role="tab" aria-selected="false" aria-controls="panel-frontend"
+          data-panel="frontend">
+          <i class="bx bx-palette"></i>
+          <span>Front-End</span>
+          <em class="tab-count">4</em>
+        </button>
+        <div class="tab-indicator" id="tabIndicator"></div>
+      </div>
+    </div>
+
+    <!-- ══ PANEL: Full-Stack ══ -->
+    <div class="proj-panel active" id="panel-fullstack" role="tabpanel" aria-labelledby="tab-fullstack">
+      <div class="panel-label">
+        <i class="bx bx-server"></i>
+        <span>Full-Stack Development</span>
+        <p>Complete web applications — from database design to dynamic front-end, powered by PHP, ASP.NET Core, and SQL.
+        </p>
+      </div>
+      <div class="projects-container">
+
+        <!-- Royal Express -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="images/Royal Express.png" alt="Royal Express Preview" />
+            <div class="project-links">
+              <a href="https://royal-express.great-site.net" target="_blank" title="View Live"><i
+                  class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>PHP</span><span>MySQL</span><span>Full-Stack</span>
+            </div>
+            <h3>Royal Express – Courier Management System</h3>
+            <p>A full-stack logistics and courier service web application built with PHP and MySQL, featuring online
+              shipment booking, request handling, and user authentication.</p>
+          </div>
+          <span class="animate scroll" style="--i: 2"></span>
+        </div>
+
+        <!-- Give-AID -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="images/Give AID.png" alt="Give-AID Preview" />
+            <div class="project-links">
+              <a href="https://my-give-aid.runasp.net" target="_blank" title="View Live"><i
+                  class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>ASP.NET Core</span><span>C#</span><span>MSSQL</span>
+            </div>
+            <h3>Give-AID – Humanitarian NGO Platform</h3>
+            <p>A full-stack welfare and charity web platform developed using ASP.NET Core MVC and MSSQL, connecting
+              donors, NGO programmes, partners, and volunteer networks.</p>
+          </div>
+          <span class="animate scroll" style="--i: 3"></span>
+        </div>
+
+        <!-- E-World -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="images/E World.png" alt="E-World Preview" />
+            <div class="project-links">
+              <a href="https://e-world.runasp.net" target="_blank" title="View Live"><i
+                  class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>ASP.NET Core</span><span>C#</span><span>MSSQL</span>
+            </div>
+            <h3>E-World – Multi-Category E-Commerce Platform</h3>
+            <p>A feature-rich online shopping web platform built with ASP.NET Core MVC and MSSQL, featuring
+              multi-category catalogs, flash sales, user accounts, and cart management.</p>
+          </div>
+          <span class="animate scroll" style="--i: 4"></span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ PANEL: 3D & Motion ══ -->
+    <div class="proj-panel" id="panel-3d" role="tabpanel" aria-labelledby="tab-3d" hidden>
+      <div class="panel-label">
+        <i class="bx bx-cube-alt"></i>
+        <span>3D &amp; Motion</span>
+        <p>Immersive experiences using Three.js, WebGL, and scroll-driven animation — where creativity meets
+          cutting-edge rendering.</p>
+      </div>
+      <div class="projects-container">
+
+        <!-- Interactive 3D Solar System -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="images/solar-system.jpeg" alt="Solar System Preview" />
+            <div class="project-links">
+              <a href="https://hanan-solar-system.vercel.app/" target="_blank" title="View Live"><i
+                  class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>Three.js</span><span>WebGL</span><span>JavaScript</span>
+            </div>
+            <h3>Interactive 3D Solar System</h3>
+            <p>A cinematic, fully interactive 3D solar system simulation built with Three.js. Features momentum-based
+              zooming, planetary orbits, and a detailed UI.</p>
+          </div>
+          <span class="animate scroll" style="--i: 2"></span>
+        </div>
+
+        <!-- Verance Nocturne -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="images/Verance Nocturne.png" alt="Verance Nocturne Preview" />
+            <div class="project-links">
+              <a href="https://verance-nocturne.vercel.app/" target="_blank" title="View Live"><i
+                  class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>Three.js</span><span>WebGL</span><span>3D Config</span>
+            </div>
+            <h3>Verance Nocturne – Haute Horlogerie 3D Experience</h3>
+            <p>An ultra-luxury, interactive 3D WebGL timepiece showcase and configurator. Features real-time exploded
+              anatomy disassembly, live synchronized clockwork mechanics, and bespoke case and dial customization.</p>
+          </div>
+          <span class="animate scroll" style="--i: 3"></span>
+        </div>
+
+        <!-- OrbitSky -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="images/orbitsky-preview.png" alt="OrbitSky Weather App Preview" />
+            <div class="project-links">
+              <a href="https://orbitsky.vercel.app/" target="_blank" title="View Live"><i
+                  class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>Three.js</span><span>Weather API</span><span>JavaScript</span>
+            </div>
+            <h3>OrbitSky – Interactive 3D Global Weather Platform</h3>
+            <p>A cinematic weather experience powered by Three.js, featuring a real-time interactive 3D Earth globe.
+              Delivers live conditions, hourly breakdowns, and 7-day forecasts for any location worldwide — all wrapped
+              in a sleek, space-grade dark UI.</p>
+          </div>
+          <span class="animate scroll" style="--i: 4"></span>
+        </div>
+
+        <!-- Rolex Motion -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="images/Rolex Motion.png" alt="Rolex Motion Preview" />
+            <div class="project-links">
+              <a href="https://rolex-motion.netlify.app" target="_blank" title="View Live"><i
+                  class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>Canvas</span><span>Scroll Animation</span><span>JavaScript</span>
+            </div>
+            <h3>Rolex Motion Experience</h3>
+            <p>A cinematic scroll-driven web experience created by converting video into sequenced frames and
+              synchronizing bidirectional scroll movements using AI-assisted animation.</p>
+          </div>
+          <span class="animate scroll" style="--i: 5"></span>
+        </div>
+
+        <!-- Pixel Developer Portfolio -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="images/Pixel Developer Portfolio.png" alt="Pixel Developer Portfolio Preview" />
+            <div class="project-links">
+              <a href="https://pixel-developer-portfolio.netlify.app" target="_blank" title="View Live"><i
+                  class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>CSS Animation</span><span>JavaScript</span><span>Retro UI</span>
+            </div>
+            <h3>Pixel Developer Portfolio</h3>
+            <p>A retro 8-bit gaming-themed web developer portfolio featuring interactive quest logs, player stats,
+              custom pixel typography, and dynamic animations.</p>
+          </div>
+          <span class="animate scroll" style="--i: 6"></span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ PANEL: Front-End ══ -->
+    <div class="proj-panel" id="panel-frontend" role="tabpanel" aria-labelledby="tab-frontend" hidden>
+      <div class="panel-label">
+        <i class="bx bx-palette"></i>
+        <span>Front-End &amp; UI</span>
+        <p>Polished, responsive interfaces and interactive web apps built with HTML, CSS, and JavaScript.</p>
+      </div>
+      <div class="projects-container">
+
+        <!-- Sneaker World -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="images/Sneaker World.png" alt="Sneaker World Preview" />
+            <div class="project-links">
+              <a href="https://sneaker-world.netlify.app" target="_blank" title="View Live"><i
+                  class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+            <h3>Sneaker World</h3>
+            <p>A fully responsive e-commerce front-end for a sneaker store featuring modern UI design and product grid
+              layout.</p>
+          </div>
+          <span class="animate scroll" style="--i: 2"></span>
+        </div>
+
+        <!-- Urban Bites -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="images/Urban Bites.png" alt="Urban Bites Preview" />
+            <div class="project-links">
+              <a href="https://urban-bites-hub.netlify.app" target="_blank" title="View Live"><i
+                  class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+            <h3>Urban Bites – Food Ordering System</h3>
+            <p>A fully functional restaurant web application featuring dynamic menu filtering, shopping cart management,
+              and real-time order calculations with a modern responsive UI.</p>
+          </div>
+          <span class="animate scroll" style="--i: 3"></span>
+        </div>
+
+        <!-- CardCraft -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="images/CardCraft.png" alt="CardCraft Preview" />
+            <div class="project-links">
+              <a href="https://create-your-own-official.netlify.app" target="_blank" title="View Live"><i
+                  class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+            <h3>CardCraft – Custom Card Designer</h3>
+            <p>An interactive web application for designing and customizing professional cards for weddings,
+              graduations, and invitations with real-time preview and dynamic themes.</p>
+          </div>
+          <span class="animate scroll" style="--i: 4"></span>
+        </div>
+
+        <!-- Marksheet Calculator -->
+        <div class="project-card">
+          <div class="project-img">
+            <img src="images/Marksheet Calculator.png" alt="Marksheet Calculator Preview" />
+            <div class="project-links">
+              <a href="https://marksheet-calculator.netlify.app" target="_blank" title="View Live"><i
+                  class="bx bx-link-external"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>HTML</span><span>CSS</span><span>JavaScript</span>
+            </div>
+            <h3>Marksheet Calculator</h3>
+            <p>An intuitive academic calculation web app that calculates total marks, percentage, and grade
+              distributions with real-time evaluation and input validation.</p>
+          </div>
+          <span class="animate scroll" style="--i: 5"></span>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+  <!-- contact section design -->
+  <section class="contact" id="contact">
+    <h2 class="heading">
+      Contact <span>Me</span><span class="animate scroll" style="--i: 1"></span>
+    </h2>
+
+    <div class="contact-wrapper">
+      <!-- Left: Form -->
+      <div class="contact-form-col">
+        <form action="https://formspree.io/f/xvgqeeda" method="POST">
+          <div class="input-box">
+            <div class="input-field">
+              <input type="text" name="Full Name" placeholder="Full Name" required />
+              <span class="focus"></span>
+            </div>
+            <div class="input-field">
+              <input type="email" name="Email" placeholder="Email" required />
+              <span class="focus"></span>
+            </div>
+            <span class="animate scroll" style="--i: 3"></span>
+          </div>
+          <div class="input-box">
+            <div class="input-field">
+              <input type="number" name="Mobile Number" placeholder="Mobile Number" required />
+              <span class="focus"></span>
+            </div>
+            <div class="input-field">
+              <input type="text" name="Email Subject" placeholder="Email Subject" required />
+              <span class="focus"></span>
+            </div>
+            <span class="animate scroll" style="--i: 5"></span>
+          </div>
+
+          <div class="textarea-field">
+            <textarea name="Message" cols="30" rows="10" placeholder="Your Message" required></textarea>
+            <span class="focus"></span>
+            <span class="animate scroll" style="--i: 7"></span>
+          </div>
+
+          <div class="btn-box btns">
+            <button type="submit" class="btn">Submit</button>
+            <span class="animate scroll" style="--i: 9"></span>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right: 3D Globe -->
+      <div class="contact-globe-col">
+        <div class="globe-wrapper">
+          <div class="globe-glow-ring"></div>
+          <canvas id="globeCanvas"></canvas>
+          <div class="globe-label">
+            <span class="globe-ping"></span>
+            Available Globally
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer design -->
+  <footer class="footer">
+    <div class="footer-text">
+      <p>
+        Copyright &copy; 2026 | Designed and Maintenance by Muhammad Hanan
+        raza | All Rights Reserved
+      </p>
+
+      <span class="animate scroll" style="--i: 1"></span>
+    </div>
+
+    <div class="footer-iconTop">
+      <a href="#"><i class="bx bx-up-arrow-alt"></i></a>
+
+      <span class="animate scroll" style="--i: 3"></span>
+    </div>
+  </footer>
+
+  <!-- Floating Rolex-style Scroll HUD / Back to Top -->
+  <div class="scroll-hud" id="scrollHud" title="Click to Scroll to Top" aria-label="Scroll to top">
+    <div class="hud-arrow-badge">
+      <i class='bx bx-up-arrow-alt'></i>
+    </div>
+    <div class="hud-circle">
+      <svg viewBox="0 0 36 36" class="hud-svg">
+        <circle cx="18" cy="18" r="15.8" class="hud-inner-circle" />
+        <path class="hud-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+        <path class="hud-progress" id="hudCircle" stroke-dasharray="0, 100"
+          d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+      </svg>
+      <span class="hud-pct" id="hudPct">0%</span>
+      <i class='bx bx-up-arrow-alt hud-center-arrow'></i>
+    </div>
+    <div class="hud-label-box">
+      <span class="hud-section" id="hudSection">HOME</span>
+      <span class="hud-top-hint">TOP</span>
+    </div>
+  </div>
+
+  <!-- Three.js + GLTF Loader (for Globe) -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script src="script.js"></script>
+  <script type="module" src="globe.js"></script>
+</body>
+
+</html>
