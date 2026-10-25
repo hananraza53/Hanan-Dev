@@ -67,12 +67,16 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   controls.dampingFactor = 0.06;
   controls.enableZoom = false;
   controls.enablePan = false;
-  controls.autoRotate = true;
-  controls.autoRotateSpeed = 2.5;
+  controls.autoRotate = false;           // driven manually via delta-time
   // Lock polar angle so drag is horizontal-only
   const fixedPolar = Math.PI * 0.5;
   controls.minPolarAngle = fixedPolar;
   controls.maxPolarAngle = fixedPolar;
+
+  // Globe rotation speed in radians/second (framerate-independent)
+  const GLOBE_ROT_SPEED = 0.22;   // ≈ same visual speed as autoRotateSpeed 2.5 @ 60fps
+  const STARS_ROT_Y     = 0.012;
+  const STARS_ROT_X     = 0.005;
 
   // ── Stars ─────────────────────────────────────────
   const starGeo = new THREE.BufferGeometry();
@@ -164,9 +168,18 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
   function animate() {
     requestAnimationFrame(animate);
     if (!isVisible) return;
-    const t = clock.getElapsedTime();
-    stars.rotation.y = t * 0.012;
-    stars.rotation.x = t * 0.005;
+    const delta = clock.getDelta();          // seconds since last frame
+    const t     = clock.elapsedTime;        // total elapsed time
+
+    // Framerate-independent globe rotation
+    if (planetMesh) {
+      planetMesh.rotation.y += GLOBE_ROT_SPEED * delta;
+    }
+
+    // Stars drift (also delta-time based)
+    stars.rotation.y += STARS_ROT_Y * delta;
+    stars.rotation.x += STARS_ROT_X * delta;
+
     glowMesh.material.opacity = 0.10 + Math.sin(t * 1.2) * 0.025;
     controls.update();
     renderer.render(scene, camera);
