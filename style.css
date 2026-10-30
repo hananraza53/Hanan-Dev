@@ -2425,6 +2425,34 @@ section,
     background: rgba(0, 171, 240, 0.18);
     border-color: rgba(0, 171, 240, 0.5);
 }
+/* AI-Built badge for project cards */
+.project-tech-stack .ai-badge {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(236, 72, 153, 0.15));
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+.project-tech-stack .ai-badge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.1), transparent);
+    animation: aiBadgeShimmer 3s ease-in-out infinite;
+}
+@keyframes aiBadgeShimmer {
+    0%, 100% { transform: translateX(-100%); }
+    50% { transform: translateX(100%); }
+}
+.project-card:hover .project-tech-stack .ai-badge {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(236, 72, 153, 0.25));
+    border-color: rgba(168, 85, 247, 0.6);
+}
+[data-theme="light"] .project-tech-stack .ai-badge {
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1));
+    color: #7c3aed;
+    border-color: rgba(124, 58, 237, 0.35);
+}
 
 /* ══════════════════════════════════════════
    PROJECT CATEGORY TABS
