@@ -32,12 +32,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
+    rel="stylesheet" media="print" onload="this.media='all'" />
 
   <link rel="stylesheet" href="style.css" />
 
   <!-- box icons -->
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" media="print" onload="this.media='all'" />
 </head>
 
 <body>
@@ -223,7 +223,9 @@
         window.dispatchEvent(new Event('preloaderFinished'));
       }
 
-      deadline = setTimeout(finish, 4200);
+      const compact = matchMedia('(max-width: 768px), (pointer: coarse)').matches;
+      const duration = compact ? 600 : 3200;
+      deadline = setTimeout(finish, compact ? 1100 : 4200);
       dialog.querySelector('.storm-skip').onclick = finish;
       dialog.oncancel = event => { event.preventDefault(); finish(); };
       try {
@@ -231,13 +233,13 @@
         window.__isPreloading = true;
         const start = performance.now();
         function draw(now) {
-          const progress = Math.min(1, (now - start) / 3200);
+          const progress = Math.min(1, (now - start) / duration);
           output.textContent = Math.floor(progress * 100) + '%';
           dialog.style.setProperty('--progress', progress);
           if (progress < 1) frame = requestAnimationFrame(draw);
           else {
             dialog.classList.add('is-leaving');
-            fadeTimer = setTimeout(finish, 580);
+            fadeTimer = setTimeout(finish, compact ? 180 : 580);
           }
         }
         frame = requestAnimationFrame(draw);
@@ -315,7 +317,7 @@
 
     <nav class="navbar">
       <a href="#home" class="active">Home</a>
-      <!-- <a href="#about">About</a> -->
+      
       <a href="#education">Education</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
@@ -376,7 +378,7 @@
       <!-- Netlify / live projects -->
       <a href="https://hanan-dev.vercel.app"><i class="bx bx-globe"></i></a>
       <!-- Indeed -->
-      <!-- <a href="https://profile.indeed.com/p/mr-dc6m483"><i class="bx bx-briefcase"></i></a> -->
+      
       <!-- Linkedin -->
       <a href="https://www.linkedin.com/in/muhammad-hanan-raza"><i class="bx bxl-linkedin"></i></a>
       <!--  Github -->
@@ -391,35 +393,7 @@
   </section>
 
   <!-- About Section Design -->
-  <!-- <section class="about" id="about">
-    <h2 class="heading">
-      About <span>Me</span><span class="animate scroll" style="--i: 1"></span>
-    </h2>
-
-    <div class="about-img">
-      <img src="images/pp.png" alt="" />
-      <span class="circle-spin"></span>
-      <span class="animate scroll" style="--i: 2"></span>
-    </div>
-
-    <div class="about-content">
-      <h3>
-        Greetings! I'm thrilled you're here.<span class="animate scroll" style="--i: 3"></span>
-      </h3>
-      <p>
-        I'm Muhammad Hanan Raza — a web developer who builds websites that are
-        simple, fast, and easy to use.<br />
-        I focus on clean design, reliable functionality, and keep learning to
-        make every project better than the last.<br />
-        <span class="animate scroll" style="--i: 4"></span>
-      </p>
-
-      <div class="btn-box btns">
-        <a href="#contact" class="btn">Get in Touch</a>
-        <span class="animate scroll" style="--i: 5"></span>
-      </div>
-    </div>
-  </section> -->
+  
 
   <section class="education" id="education">
     <h2 class="heading">
@@ -906,7 +880,7 @@
         <!-- Zarvio -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Zarvio.png" alt="Zarvio Preview" />
+            <img loading="lazy" decoding="async" src="images/Zarvio.webp" alt="Zarvio Preview" />
             <div class="project-links">
               <a href="https://zarvio.runasp.net/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -926,7 +900,7 @@
         <!-- Royal Express -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Royal Express.png" alt="Royal Express Preview" />
+            <img loading="lazy" decoding="async" src="images/Royal Express.webp" alt="Royal Express Preview" />
             <div class="project-links">
               <a href="https://royal-express.great-site.net" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -946,7 +920,7 @@
         <!-- Give-AID -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Give AID.png" alt="Give-AID Preview" />
+            <img loading="lazy" decoding="async" src="images/Give AID.webp" alt="Give-AID Preview" />
             <div class="project-links">
               <a href="https://my-give-aid.runasp.net" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -966,7 +940,7 @@
         <!-- E-World -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/E-world.png" alt="E-World Preview" />
+            <img loading="lazy" decoding="async" src="images/E-world.webp" alt="E-World Preview" />
             <div class="project-links">
               <a href="https://e-world.runasp.net" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -999,7 +973,7 @@
         <!-- 3DE -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/3de.png"
+            <img loading="lazy" decoding="async" src="images/3de.webp"
               alt="3DE homepage showing the featured residence beneath the words Space, Considered." />
             <div class="project-links">
               <a href="https://3d-made-easy.vercel.app/" target="_blank" title="View Live"><i
@@ -1022,7 +996,7 @@
         <!-- Infinite Voyage -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Infinite Voyage.jpg" alt="Infinite Voyage Galaxy Preview" />
+            <img loading="lazy" decoding="async" src="images/Infinite Voyage.webp" alt="Infinite Voyage Galaxy Preview" />
             <div class="project-links">
               <a href="https://infinite-voyage-galaxy.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1044,7 +1018,7 @@
         <!-- Raahi -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Raahi.png" alt="Raahi Travel Website Preview" />
+            <img loading="lazy" decoding="async" src="images/Raahi.webp" alt="Raahi Travel Website Preview" />
             <div class="project-links">
               <a href="https://raahi-tour.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1065,7 +1039,7 @@
         <!-- Interactive 3D Solar System -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/solar-system.jpeg" alt="Solar System Preview" />
+            <img loading="lazy" decoding="async" src="images/solar-system.webp" alt="Solar System Preview" />
             <div class="project-links">
               <a href="https://hanan-solar-system.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1085,7 +1059,7 @@
         <!-- Verance Nocturne -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Verance Nocturne.png" alt="Verance Nocturne Preview" />
+            <img loading="lazy" decoding="async" src="images/Verance Nocturne.webp" alt="Verance Nocturne Preview" />
             <div class="project-links">
               <a href="https://verance-nocturne.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1105,7 +1079,7 @@
         <!-- OrbitSky -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/orbitsky-preview.png" alt="OrbitSky Weather App Preview" />
+            <img loading="lazy" decoding="async" src="images/orbitsky-preview.webp" alt="OrbitSky Weather App Preview" />
             <div class="project-links">
               <a href="https://orbitsky.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1127,7 +1101,7 @@
         <!-- Rolex Motion -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Rolex Motion.png" alt="Rolex Motion Preview" />
+            <img loading="lazy" decoding="async" src="images/Rolex Motion.webp" alt="Rolex Motion Preview" />
             <div class="project-links">
               <a href="https://rolex-motion.vercel.app" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1148,7 +1122,7 @@
         <!-- Pixel Developer Portfolio -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Pixel Developer Portfolio.png" alt="Pixel Developer Portfolio Preview" />
+            <img loading="lazy" decoding="async" src="images/Pixel Developer Portfolio.webp" alt="Pixel Developer Portfolio Preview" />
             <div class="project-links">
               <a href="https://pixel-portfolio-blue.vercel.app" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1169,7 +1143,7 @@
         <!-- Aventador Instinct -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Aventador Instinct.png" alt="Aventador Instinct Preview" />
+            <img loading="lazy" decoding="async" src="images/Aventador Instinct.webp" alt="Aventador Instinct Preview" />
             <div class="project-links">
               <a href="https://aventador-instinct.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1190,7 +1164,7 @@
         <!-- Neon Drift -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Neon Drift.png" alt="Neon Drift Racing Game Preview" />
+            <img loading="lazy" decoding="async" src="images/Neon Drift.webp" alt="Neon Drift Racing Game Preview" />
             <div class="project-links">
               <a href="https://neon-drift-hanan.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1212,7 +1186,7 @@
         <!-- Last Zone -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Last Zone.png" alt="Last Zone Multiplayer Battle Royale Preview" />
+            <img loading="lazy" decoding="async" src="images/Last Zone.webp" alt="Last Zone Multiplayer Battle Royale Preview" />
             <div class="project-links">
               <a href="https://last-zone-pvp.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1247,7 +1221,7 @@
         <!-- Sneaker World -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Sneaker World.png" alt="Sneaker World Preview" />
+            <img loading="lazy" decoding="async" src="images/Sneaker World.webp" alt="Sneaker World Preview" />
             <div class="project-links">
               <a href="https://sneaker-world-shoes.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1267,7 +1241,7 @@
         <!-- Urban Bites -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Urban Bites.png" alt="Urban Bites Preview" />
+            <img loading="lazy" decoding="async" src="images/Urban Bites.webp" alt="Urban Bites Preview" />
             <div class="project-links">
               <a href="https://urban-bites-hub.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1287,7 +1261,7 @@
         <!-- CardCraft -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/CardCraft.png" alt="CardCraft Preview" />
+            <img loading="lazy" decoding="async" src="images/CardCraft.webp" alt="CardCraft Preview" />
             <div class="project-links">
               <a href="https://card-craft-official.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1307,7 +1281,7 @@
         <!-- Marksheet Calculator -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Marksheet Calculator.png" alt="Marksheet Calculator Preview" />
+            <img loading="lazy" decoding="async" src="images/Marksheet Calculator.webp" alt="Marksheet Calculator Preview" />
             <div class="project-links">
               <a href="https://marksheet-calculator.netlify.app" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1327,7 +1301,7 @@
         <!-- FORM Calculator -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Form Calculator.png" alt="FORM Calculator Preview" />
+            <img loading="lazy" decoding="async" src="images/Form Calculator.webp" alt="FORM Calculator Preview" />
             <div class="project-links">
               <a href="https://form-calculator-official.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
@@ -1461,7 +1435,16 @@
   <script defer src="cursor.js"></script>
   <script src="stars.js"></script>
   <script src="script.js"></script>
-  <script type="module" src="globe.js"></script>
+  <script type="module">
+    const globe = document.getElementById('globeCanvas');
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        observer.disconnect();
+        import('./globe.js').catch(error => console.warn('Globe unavailable', error));
+      }
+    }, { rootMargin: '280px' });
+    observer.observe(globe);
+  </script>
   <dialog id="cv-dialog" aria-labelledby="cv-title">
     <header class="cv-toolbar">
       <h2 id="cv-title">My CV</h2>

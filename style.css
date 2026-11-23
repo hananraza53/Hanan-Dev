@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800;900&display=swap');
 
 
 
@@ -570,7 +569,7 @@ section {
 .home-img-inner {
     width: 100%;
     height: 100%;
-    background: url('images/ppp.png') no-repeat;
+    background: url('images/ppp.webp') no-repeat;
     background-size: cover; 
     background-position: center;
 }
@@ -2747,3 +2746,22 @@ html.orb-active #cv-dialog::backdrop { cursor: none; }
 .cv-sheet img { margin: 0; }
 .cv-hotspot { position: absolute; border-radius: 2px; }
 .cv-hotspot:is(:hover, :focus-visible) { background: #00abf022; outline: 1px solid #007aa8; }
+
+@media (max-width: 768px) {
+    .preloader.is-leaving { animation-duration: .18s; }
+    .home { min-height: 100svh; }
+    .home-content .text-animate { margin-inline: auto; }
+    .home-content, .project-card, .contact form { min-width: 0; }
+    .navbar.active { max-height: calc(100dvh - 64px); overflow-y: auto; }
+    .sk-tabs, .proj-tabs { max-width: 100%; flex-wrap: wrap; justify-content: center; }
+    .home-content .btn-box { justify-content: center; }
+    .home-content .btn, .cv-download { min-height: 44px; }
+}
+@media (max-width: 480px) {
+    .home { padding-inline: 5%; gap: 2rem; }
+    .home-content p, .project-content p { font-size: 15px; line-height: 1.6; }
+    .home-content .btn-box { display: flex; flex-flow: row wrap; gap: 8px; }
+    .home-content .btn-box .btn { width: auto; flex: 1 1 80px; font-size: 14px; }
+    .globe-wrapper { max-width: 100%; }
+    .cv-toolbar .cv-download { width: auto; padding-inline: 12px; font-size: 14px; }
+}
