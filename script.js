@@ -1,360 +1,18 @@
-// ==========================================
-// CINEMATIC PRELOADER ENGINE
-// Multi-phase loading experience with
-// matrix rain, particle assembly, shockwave
-// ==========================================
-window.__isPreloading = true;
-
-// Prevent browser from restoring scrolled position on refresh
-if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
+function bindThemeSwitch(button, changed) {
+    function sync() {
+        const light = document.documentElement.dataset.theme === 'light';
+        button.textContent = light ? '☾  Dark' : '☼  Light';
+        button.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+    }
+    button.onclick = () => {
+        const theme = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+        document.documentElement.dataset.theme = theme;
+        try { localStorage.setItem('selected-theme', theme); } catch {}
+        sync();
+        if (changed) changed();
+    };
+    sync();
 }
-window.scrollTo(0, 0);
-
-// Global event interceptors to prevent scroll events while preloader runs
-function preventScrollDuringPreload(e) {
-    if (window.__isPreloading || document.body.classList.contains('preloading')) {
-        if (e.type === 'keydown') {
-            const scrollKeys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
-            if (scrollKeys.includes(e.key)) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        } else {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-    }
-}
-
-function pinScrollToTop() {
-    if (window.__isPreloading || document.body.classList.contains('preloading')) {
-        if (window.scrollY !== 0 || window.scrollX !== 0) {
-            window.scrollTo(0, 0);
-        }
-    }
-}
-
-window.addEventListener('wheel', preventScrollDuringPreload, { passive: false, capture: true });
-window.addEventListener('touchmove', preventScrollDuringPreload, { passive: false, capture: true });
-window.addEventListener('keydown', preventScrollDuringPreload, { capture: true });
-window.addEventListener('scroll', pinScrollToTop, { passive: false, capture: true });
-
-(function initPreloader() {
-    // Lock html & body scroll during preload
-    document.documentElement.classList.add('preloading');
-    document.body.classList.add('preloading');
-    window.scrollTo(0, 0);
-
-    const preloader = document.getElementById('preloader');
-    if (!preloader) return;
-
-    // === DOM refs ===
-    const matrixCanvas = document.getElementById('matrixCanvas');
-    const particleBgCanvas = document.getElementById('preloaderParticles');
-    const glitchWrap = document.getElementById('preloaderGlitch');
-    const brandWrap = document.getElementById('preloaderBrand');
-    const brandCipher = document.getElementById('brandCipher');
-    const devPill = document.getElementById('devPill');
-    const shockwave = document.getElementById('shockwave');
-    const fillBar = document.getElementById('preloaderFill');
-    const pctText = document.getElementById('preloaderPct');
-    const statusText = document.getElementById('preloaderStatus');
-    const termStatus = document.getElementById('termStatus');
-    const skipBtn = document.getElementById('preloaderSkip');
-
-    let isFinished = false;
-    let animFrameMatrix, animFrameDots, animFrameProgress;
-    const totalDuration = 4200; // ms total duration
-    const startTime = performance.now();
-
-    // ─────────────────────────────────────
-    // MATRIX CODE RAIN
-    // ─────────────────────────────────────
-    function initMatrix() {
-        if (!matrixCanvas) return;
-        const mCtx = matrixCanvas.getContext('2d');
-        const resizeMatrix = () => {
-            matrixCanvas.width = window.innerWidth;
-            matrixCanvas.height = window.innerHeight;
-        };
-        resizeMatrix();
-
-        const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz{}[]<>/\\|~`!@#$%^&*+=_-;';
-        const fontSize = 14;
-        const columns = Math.ceil(matrixCanvas.width / fontSize);
-        const drops = new Array(columns).fill(0);
-
-        // Randomize initial positions so the screen is immediately alive
-        for (let i = 0; i < drops.length; i++) {
-            drops[i] = Math.floor(Math.random() * (matrixCanvas.height / fontSize));
-        }
-
-        function drawMatrix() {
-            if (isFinished) return;
-            mCtx.fillStyle = 'rgba(4, 13, 20, 0.08)';
-            mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-
-            mCtx.font = `${fontSize}px 'Inter', monospace`;
-
-            for (let i = 0; i < drops.length; i++) {
-                const char = chars[Math.floor(Math.random() * chars.length)];
-                const x = i * fontSize;
-                const y = drops[i] * fontSize;
-
-                const r = Math.random();
-                if (r > 0.96) {
-                    mCtx.fillStyle = '#ffffff';
-                } else if (r > 0.8) {
-                    mCtx.fillStyle = '#00e5cc';
-                } else {
-                    mCtx.fillStyle = 'rgba(0, 171, 240, 0.75)';
-                }
-
-                mCtx.fillText(char, x, y);
-
-                if (y > matrixCanvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-
-            animFrameMatrix = requestAnimationFrame(drawMatrix);
-        }
-
-        drawMatrix();
-    }
-
-    // ─────────────────────────────────────
-    // FLOATING PARTICLES BACKGROUND
-    // ─────────────────────────────────────
-    function initPreloaderParticles() {
-        if (!particleBgCanvas) return;
-        const pCtx = particleBgCanvas.getContext('2d');
-        particleBgCanvas.width = window.innerWidth;
-        particleBgCanvas.height = window.innerHeight;
-
-        const dots = [];
-        const count = window.innerWidth < 768 ? 25 : 45;
-
-        for (let i = 0; i < count; i++) {
-            dots.push({
-                x: Math.random() * particleBgCanvas.width,
-                y: Math.random() * particleBgCanvas.height,
-                vx: (Math.random() - 0.5) * 1.0,
-                vy: (Math.random() - 0.5) * 1.0,
-                r: Math.random() * 2 + 0.6,
-                alpha: Math.random() * 0.45 + 0.15
-            });
-        }
-
-        function animateDots() {
-            if (isFinished) return;
-            pCtx.clearRect(0, 0, particleBgCanvas.width, particleBgCanvas.height);
-
-            for (let i = 0; i < dots.length; i++) {
-                const d = dots[i];
-                d.x += d.vx;
-                d.y += d.vy;
-
-                if (d.x < 0 || d.x > particleBgCanvas.width) d.vx *= -1;
-                if (d.y < 0 || d.y > particleBgCanvas.height) d.vy *= -1;
-
-                pCtx.beginPath();
-                pCtx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-                pCtx.fillStyle = `rgba(0, 171, 240, ${d.alpha})`;
-                pCtx.fill();
-
-                // Proximity connection lines
-                for (let j = i + 1; j < dots.length; j++) {
-                    const dx = d.x - dots[j].x;
-                    const dy = d.y - dots[j].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 110) {
-                        pCtx.beginPath();
-                        pCtx.moveTo(d.x, d.y);
-                        pCtx.lineTo(dots[j].x, dots[j].y);
-                        pCtx.strokeStyle = `rgba(0, 171, 240, ${(1 - dist / 110) * 0.2})`;
-                        pCtx.lineWidth = 0.5;
-                        pCtx.stroke();
-                    }
-                }
-            }
-
-            animFrameDots = requestAnimationFrame(animateDots);
-        }
-
-        animateDots();
-    }
-
-    // ─────────────────────────────────────
-    // CYBER CIPHER DECRYPTION
-    // Rapidly scrambles characters into "Hanan"
-    // ─────────────────────────────────────
-    function initCipherDecryption(callback) {
-        if (!brandCipher) { if (callback) callback(); return; }
-        const chars = brandCipher.querySelectorAll('.cipher-char');
-        const glyphs = '01#@$%&*<>~/\\{}[]+=_!?XYZQ';
-        const lockDelays = [200, 420, 640, 860, 1080]; // ms per character
-
-        chars.forEach((charEl, idx) => {
-            const target = charEl.getAttribute('data-char');
-            const targetTime = performance.now() + lockDelays[idx];
-
-            const scrambleInterval = setInterval(() => {
-                if (isFinished) {
-                    clearInterval(scrambleInterval);
-                    charEl.textContent = target;
-                    charEl.classList.add('locked');
-                    return;
-                }
-
-                if (performance.now() >= targetTime) {
-                    clearInterval(scrambleInterval);
-                    charEl.textContent = target;
-                    charEl.classList.add('locked');
-
-                    if (idx === chars.length - 1) {
-                        setTimeout(() => {
-                            if (callback) callback();
-                        }, 180);
-                    }
-                } else {
-                    charEl.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
-                }
-            }, 35);
-        });
-    }
-
-    // ─────────────────────────────────────
-    // TELEMETRY & PROGRESS BAR
-    // ─────────────────────────────────────
-    function updateProgress() {
-        if (isFinished) return;
-        const now = performance.now();
-        const elapsed = now - startTime;
-        const pct = Math.min((elapsed / totalDuration) * 100, 100);
-
-        if (fillBar) fillBar.style.width = `${pct}%`;
-        if (pctText) pctText.textContent = `${Math.round(pct)}%`;
-
-        if (pct < 35) {
-            if (statusText) statusText.textContent = 'INITIALIZING SYSTEM...';
-        } else if (pct < 70) {
-            if (statusText) statusText.textContent = 'DECRYPTING IDENTITY...';
-        } else if (pct < 90) {
-            if (statusText) statusText.textContent = 'SYNCHRONIZING ASSETS...';
-        } else {
-            if (statusText) statusText.textContent = 'ACCESS GRANTED';
-        }
-
-        if (pct < 100) {
-            animFrameProgress = requestAnimationFrame(updateProgress);
-        }
-    }
-
-    // ─────────────────────────────────────
-    // PHASE ORCHESTRATOR
-    // ─────────────────────────────────────
-    function runPreloader() {
-        initMatrix();
-        initPreloaderParticles();
-        updateProgress();
-
-        // Phase 1: Glitch text (0 - 1300ms)
-        // Phase 2: Cipher decryption (1300ms - 2700ms)
-        setTimeout(() => {
-            if (isFinished) return;
-            if (glitchWrap) glitchWrap.classList.add('hidden');
-
-            setTimeout(() => {
-                if (isFinished) return;
-                if (brandWrap) brandWrap.classList.add('active');
-
-                initCipherDecryption(() => {
-                    if (isFinished) return;
-                    // Phase 3: Badge pop + shockwave (2700ms - 3800ms)
-                    if (devPill) devPill.classList.add('pop');
-                    if (shockwave) {
-                        shockwave.classList.add('blast');
-                        shockwave.addEventListener('animationend', () => {
-                            shockwave.style.display = 'none';
-                        }, { once: true });
-                    }
-
-                    // Phase 4: Exit sequence — hold 1.5s to showcase final brand
-                    setTimeout(() => {
-                        exitPreloader();
-                    }, 1500);
-                });
-            }, 250);
-        }, 1300);
-    }
-
-    // ─────────────────────────────────────
-    // EXIT SEQUENCE
-    // ─────────────────────────────────────
-    function exitPreloader() {
-        if (isFinished) return;
-        isFinished = true;
-
-        if (fillBar) fillBar.style.width = '100%';
-        if (pctText) pctText.textContent = '100%';
-        if (statusText) statusText.textContent = 'SYSTEM ONLINE';
-
-        setTimeout(() => {
-            preloader.classList.add('fade-out');
-
-            setTimeout(() => {
-                preloader.style.display = 'none';
-                window.__isPreloading = false;
-                document.documentElement.classList.remove('preloading');
-                document.body.classList.remove('preloading');
-
-                window.removeEventListener('wheel', preventScrollDuringPreload, { capture: true });
-                window.removeEventListener('touchmove', preventScrollDuringPreload, { capture: true });
-                window.removeEventListener('keydown', preventScrollDuringPreload, { capture: true });
-                window.removeEventListener('scroll', pinScrollToTop, { capture: true });
-
-                // Force reset to top and notify LERP engine
-                window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-                window.dispatchEvent(new CustomEvent('preloaderFinished'));
-
-                cancelAnimationFrame(animFrameMatrix);
-                cancelAnimationFrame(animFrameDots);
-                cancelAnimationFrame(animFrameProgress);
-            }, 1000);
-        }, 200);
-    }
-
-    // ─────────────────────────────────────
-    // SKIP PRELOADER (User Control)
-    // ─────────────────────────────────────
-    function skipPreloader() {
-        if (isFinished) return;
-        exitPreloader();
-    }
-
-    if (skipBtn) {
-        skipBtn.addEventListener('click', skipPreloader);
-    }
-
-    window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            skipPreloader();
-        }
-    });
-
-    // ─────────────────────────────────────
-    // LAUNCH
-    // ─────────────────────────────────────
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', runPreloader);
-    } else {
-        runPreloader();
-    }
-})();
-
 // ==========================================
 // HANAN DEV — PORTFOLIO JAVASCRIPT ENGINE
 // Interactive Particles, Rolex Scroll HUD,
@@ -423,47 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ------------------------------------------
     // 2. THEME ENGINE
     // ------------------------------------------
-    const themeBtn = document.getElementById('theme-btn');
-    const themeMenu = document.querySelector('.theme-menu');
-    const themeOptions = document.querySelectorAll('.theme-option');
-
-    if (themeBtn && themeMenu) {
-        themeBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            themeMenu.classList.toggle('active');
-        });
-
-        document.addEventListener('click', (e) => {
-            if (!themeBtn.contains(e.target) && !themeMenu.contains(e.target)) {
-                themeMenu.classList.remove('active');
-            }
-        });
-    }
-
-    const setTheme = (theme) => {
-        if (theme === 'default') {
-            document.body.removeAttribute('data-theme');
-        } else {
-            document.body.setAttribute('data-theme', theme);
-        }
-        localStorage.setItem('selected-theme', theme);
-
-        // Notify particle system of theme color change
-        setTimeout(updateParticleColor, 100);
-    };
-
-    themeOptions.forEach(option => {
-        option.addEventListener('click', () => {
-            const theme = option.getAttribute('data-set-theme');
-            setTheme(theme);
-            if (themeMenu) themeMenu.classList.remove('active');
-        });
-    });
-
-    const savedTheme = localStorage.getItem('selected-theme');
-    if (savedTheme) {
-        setTheme(savedTheme);
-    }
+    bindThemeSwitch(document.getElementById('theme-btn'));
 
     // ------------------------------------------
     // 3. UNIFIED SMOOTH INERTIAL SCROLLING (LERP)
@@ -564,7 +182,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    const cvDialog = document.getElementById('cv-dialog');
     function lerpUpdate() {
+        if (cvDialog?.open) {
+            currentScrollY = targetScrollY = window.scrollY;
+            isLerping = false;
+            return;
+        }
         if (isPreloadActive()) {
             isLerping = false;
             currentScrollY = 0;
@@ -595,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Intercept mouse wheel for unified inertial scrolling
     window.addEventListener('wheel', (e) => {
+        if (cvDialog?.open) return;
         if (isPreloadActive()) {
             e.preventDefault();
             return;
@@ -639,7 +264,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Keyboard navigation support (ArrowDown, ArrowUp, PageDown, PageUp, Space, Home, End)
     window.addEventListener('keydown', (e) => {
-        if (isPreloadActive()) {
+        if (cvDialog?.open || isPreloadActive()) {
             return;
         }
         const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
@@ -811,134 +436,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ------------------------------------------
     // 7. INTERACTIVE PARTICLE CONSTELLATION CANVAS
     // ------------------------------------------
-    const canvas = document.getElementById('particleCanvas');
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-
-    let particles = [];
-    let particleColor = '#00abf0';
-    const particleCount = Math.min(65, Math.floor(window.innerWidth / 22));
-
-    function getThemeColor() {
-        const style = getComputedStyle(document.body);
-        return style.getPropertyValue('--main-color').trim() || '#00abf0';
-    }
-
-    function updateParticleColor() {
-        particleColor = getThemeColor();
-    }
-
-    updateParticleColor();
-
-    class Particle {
-        constructor() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.8;
-            this.vy = (Math.random() - 0.5) * 0.8;
-            this.radius = Math.random() * 2 + 1;
-        }
-
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
-
-            if (this.x < 0 || this.x > width) this.vx *= -1;
-            if (this.y < 0 || this.y > height) this.vy *= -1;
-        }
-
-        draw() {
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = particleColor;
-            ctx.globalAlpha = 0.5;
-            ctx.fill();
-            ctx.globalAlpha = 1.0;
-        }
-    }
-
-    for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-    }
-
-    // Mouse tracking for constellation interaction
-    const mouse = { x: null, y: null, maxDist: 140 };
-
-    window.addEventListener('mousemove', (e) => {
-        mouse.x = e.clientX;
-        mouse.y = e.clientY;
-    });
-
-    window.addEventListener('mouseleave', () => {
-        mouse.x = null;
-        mouse.y = null;
-    });
-
-    let animationFrameId;
-
-    function animateParticles() {
-        if (document.body.classList.contains('preloading')) {
-            animationFrameId = requestAnimationFrame(animateParticles);
-            return;
-        }
-
-        ctx.clearRect(0, 0, width, height);
-
-        // Update and draw particles
-        for (let i = 0; i < particles.length; i++) {
-            particles[i].update();
-            particles[i].draw();
-
-            // Connect nearby particles
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-
-                if (dist < 110) {
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = particleColor;
-                    ctx.globalAlpha = (1 - dist / 110) * 0.22;
-                    ctx.lineWidth = 0.8;
-                    ctx.stroke();
-                    ctx.globalAlpha = 1.0;
-                }
-            }
-
-            // Connect to mouse
-            if (mouse.x !== null && mouse.y !== null) {
-                const mdx = particles[i].x - mouse.x;
-                const mdy = particles[i].y - mouse.y;
-                const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-
-                if (mdist < mouse.maxDist) {
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(mouse.x, mouse.y);
-                    ctx.strokeStyle = particleColor;
-                    ctx.globalAlpha = (1 - mdist / mouse.maxDist) * 0.45;
-                    ctx.lineWidth = 1.2;
-                    ctx.stroke();
-                    ctx.globalAlpha = 1.0;
-                }
-            }
-        }
-
-        animationFrameId = requestAnimationFrame(animateParticles);
-    }
-
-    animateParticles();
-
-    // Window resize handler
-    window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    });
 });
 
 // ══════════════════════════════════════════
@@ -952,11 +449,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!tabs.length || !panels.length || !indicator) return;
 
     function moveIndicatorTo(tab) {
-        const tabsEl = tab.closest('.proj-tabs');
-        const tabRect = tab.getBoundingClientRect();
-        const tabsRect = tabsEl.getBoundingClientRect();
-        indicator.style.width = tabRect.width + 'px';
-        indicator.style.transform = `translateX(${tabRect.left - tabsRect.left - 8}px)`;
+        indicator.style.width = tab.offsetWidth + 'px';
+        indicator.style.transform = `translateX(${tab.offsetLeft - indicator.offsetLeft}px)`;
     }
 
     // Set indicator on load

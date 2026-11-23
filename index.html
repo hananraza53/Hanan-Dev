@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="preloading">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8" />
@@ -9,14 +9,23 @@
     content="Muhammad Hanan Raza — Full-Stack Web Developer specializing in HTML, CSS, JavaScript, PHP, C#, ASP.NET Core, React.js & Node.js. View my projects and get in touch." />
   <meta name="google-site-verification" content="NLtRPNss2LsttbU8lN4yjBYsywCBW2nt1gzhuINekr0" />
   <title>Hanan Dev — Full-Stack Developer & Designer</title>
-
-  <!-- Early Preloader Scroll Lock -->
-  <script>
-    document.documentElement.classList.add('preloading');
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
+  <style>
+    html.preloading body> :not(#preloader) {
+      visibility: hidden
     }
-    window.scrollTo(0, 0);
+
+    html.preloading {
+      overflow: hidden
+    }
+  </style>
+
+  <script>
+    try { document.documentElement.dataset.theme = localStorage.getItem('selected-theme') === 'light' ? 'light' : 'dark'; } catch { document.documentElement.dataset.theme = 'dark'; }
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('preloading');
+
+    }
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   </script>
 
   <!-- Google Fonts: Inter -->
@@ -31,84 +40,216 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </head>
 
-<body class="preloading">
-  <!-- ═══════════════════════════════════════════════════
-       CINEMATIC PRELOADER — Multi-Phase Loading Experience
-       ═══════════════════════════════════════════════════ -->
-  <div id="preloader" class="preloader">
-    <!-- Matrix code rain canvas -->
-    <canvas id="matrixCanvas" class="preloader-matrix"></canvas>
-
-    <!-- Floating particles background -->
-    <canvas id="preloaderParticles" class="preloader-particles-bg"></canvas>
-
-    <!-- Cyber HUD Top Bar -->
-    <div class="preloader-top-hud">
-      <div class="hud-tag"><span class="hud-dot"></span> SYSTEM_ONLINE // SECURE_PORT</div>
-      <div class="hud-tag hud-center-tag">PORTFOLIO v2.6 // ARCHITECTURE</div>
-      <button class="preloader-skip-btn" id="preloaderSkip" aria-label="Skip preloader">SKIP [ESC]
-        <span>&rarr;</span></button>
-    </div>
-
-    <!-- Tech stack ambient floating badges -->
-    <div class="preloader-tech-cloud" id="techCloud">
-      <span class="tech-tag" style="--left: 10%; --top: 22%; --d: 0s;">React.js</span>
-      <span class="tech-tag" style="--left: 84%; --top: 18%; --d: 0.6s;">Node.js</span>
-      <span class="tech-tag" style="--left: 14%; --top: 76%; --d: 1.2s;">ASP.NET Core</span>
-      <span class="tech-tag" style="--left: 82%; --top: 78%; --d: 0.3s;">C#</span>
-      <span class="tech-tag" style="--left: 6%; --top: 48%; --d: 0.9s;">JavaScript</span>
-      <span class="tech-tag" style="--left: 88%; --top: 46%; --d: 1.5s;">PHP / MySQL</span>
-      <span class="tech-tag" style="--left: 22%; --top: 12%; --d: 0.4s;">RESTful APIs</span>
-      <span class="tech-tag" style="--left: 74%; --top: 86%; --d: 1.1s;">Full-Stack</span>
-    </div>
-
-    <!-- Central content stage -->
-    <div class="preloader-center">
-      <!-- Phase 1: Cyber Glitch Loading Title -->
-      <div class="preloader-glitch-wrap" id="preloaderGlitch">
-        <div class="preloader-code-badge">
-          <span class="bracket">[</span> <span class="term-status" id="termStatus">INITIALIZING CORE ASSETS...</span>
-          <span class="bracket">]</span>
-        </div>
-        <div class="preloader-glitch" data-text="HANAN RAZA">HANAN RAZA</div>
-        <div class="preloader-sub-glitch">FULL-STACK DEVELOPER &amp; DESIGNER</div>
+<body>
+  <dialog id="preloader" class="preloader" aria-label="Hanan Dev portfolio intro">
+    <div class="tech-sky"><span style="--x:5%;--y:9%;--mx:4%;--my:6%;--delay:-0.0s">JavaScript</span><span
+        style="--x:29%;--y:17%;--mx:42%;--my:10%;--delay:-0.6s">HTML5</span><span
+        style="--x:53%;--y:7%;--mx:75%;--my:5%;--delay:-1.2s">CSS3</span><span
+        style="--x:73%;--y:13%;--mx:3%;--my:16%;--delay:-1.8s">Tailwind CSS</span><span
+        style="--x:88%;--y:27%;--mx:68%;--my:16%;--delay:-2.4s">Three.js</span><span
+        style="--x:43%;--y:37%;--mx:68%;--my:49%;--delay:-3.0s">GSAP</span><span
+        style="--x:4%;--y:74%;--mx:4%;--my:73%;--delay:-3.7s">C#</span><span
+        style="--x:30%;--y:84%;--mx:38%;--my:83%;--delay:-4.3s">ASP.NET Core</span><span
+        style="--x:46%;--y:65%;--mx:74%;--my:76%;--delay:-4.9s">PHP</span><span
+        style="--x:66%;--y:80%;--mx:5%;--my:90%;--delay:-5.5s">MySQL</span><span
+        style="--x:82%;--y:90%;--mx:46%;--my:94%;--delay:-6.1s">MSSQL</span><span
+        style="--x:89%;--y:68%;--mx:75%;--my:89%;--delay:-6.7s">REST APIs</span></div>
+    <div class="board-layout">
+      <div class="board-main">
+        <div class="board-id"><small>FULL-STACK DEVELOPER</small><b>Hanan<span>Dev<i>.</i></span></b></div><svg
+          aria-hidden="true" viewBox="24 0 466 360">
+          <defs>
+            <linearGradient id="board" x2="1" y2="1" gradientUnits="objectBoundingBox">
+              <stop stop-color="#537475" />
+              <stop offset=".55" stop-color="#203a42" />
+              <stop offset="1" stop-color="#132327" />
+            </linearGradient>
+          </defs>
+          <g transform="translate(0,126)">
+            <g class="plate" style="--lift:-9px">
+              <path d="M65 116l147 -74 147 74 -147 74z" fill="url(#board)" stroke="#8ee2a3" />
+              <g fill="none" stroke="#8ee2a3" opacity=".38">
+                <path d="M95 111.0 l38 -19 0 -7 18 -9" />
+                <path d="M107 116.8 l38 -19 0 -7 18 -9" />
+                <path d="M119 122.6 l38 -19 0 -7 18 -9" />
+                <path d="M131 128.4 l38 -19 0 -7 18 -9" />
+                <path d="M143 134.2 l38 -19 0 -7 18 -9" />
+                <path d="M155 140.0 l38 -19 0 -7 18 -9" />
+                <path d="M167 145.8 l38 -19 0 -7 18 -9" />
+                <path d="M179 151.6 l38 -19 0 -7 18 -9" />
+                <path d="M191 157.4 l38 -19 0 -7 18 -9" />
+              </g>
+              <path d="M65 116l147 74v12L65 128z" fill="#19313a" stroke="#48616a" />
+              <path d="M212 190l147 -74v12l-147 74z" fill="#0f1d24" stroke="#8ee2a3" />
+              <path d="M82 124.0 l0 5 6 3 0 -5" fill="#8ee2a3" />
+              <path d="M94 129.8 l0 5 6 3 0 -5" fill="#8ee2a3" />
+              <path d="M106 135.6 l0 5 6 3 0 -5" fill="#8ee2a3" />
+              <path d="M118 141.4 l0 5 6 3 0 -5" fill="#8ee2a3" />
+              <path d="M130 147.2 l0 5 6 3 0 -5" fill="#8ee2a3" />
+              <path d="M142 153.0 l0 5 6 3 0 -5" fill="#8ee2a3" />
+              <path d="M154 158.8 l0 5 6 3 0 -5" fill="#8ee2a3" />
+              <path d="M166 164.6 l0 5 6 3 0 -5" fill="#8ee2a3" />
+              <path d="M178 170.4 l0 5 6 3 0 -5" fill="#8ee2a3" />
+              <path d="M190 176.2 l0 5 6 3 0 -5" fill="#8ee2a3" />
+              <path d="M202 182.0 l0 5 6 3 0 -5" fill="#8ee2a3" />
+              <path d="M214 187.8 l0 5 6 3 0 -5" fill="#8ee2a3" />
+              <path d="M330 141l40 0 12 -12h24" stroke="#8ee2a3" fill="none" /><text x="411" y="133" font-size="14"
+                fill="#8ee2a3" font-family="monospace">MongoDB</text>
+            </g>
+          </g>
+          <g transform="translate(0,84)">
+            <g class="plate" style="--lift:-18px">
+              <path d="M65 116l147 -74 147 74 -147 74z" fill="url(#board)" stroke="#abacff" />
+              <g fill="none" stroke="#abacff" opacity=".38">
+                <path d="M95 111.0 l38 -19 0 -7 18 -9" />
+                <path d="M107 116.8 l38 -19 0 -7 18 -9" />
+                <path d="M119 122.6 l38 -19 0 -7 18 -9" />
+                <path d="M131 128.4 l38 -19 0 -7 18 -9" />
+                <path d="M143 134.2 l38 -19 0 -7 18 -9" />
+                <path d="M155 140.0 l38 -19 0 -7 18 -9" />
+                <path d="M167 145.8 l38 -19 0 -7 18 -9" />
+                <path d="M179 151.6 l38 -19 0 -7 18 -9" />
+                <path d="M191 157.4 l38 -19 0 -7 18 -9" />
+              </g>
+              <path d="M65 116l147 74v12L65 128z" fill="#19313a" stroke="#48616a" />
+              <path d="M212 190l147 -74v12l-147 74z" fill="#0f1d24" stroke="#abacff" />
+              <path d="M82 124.0 l0 5 6 3 0 -5" fill="#abacff" />
+              <path d="M94 129.8 l0 5 6 3 0 -5" fill="#abacff" />
+              <path d="M106 135.6 l0 5 6 3 0 -5" fill="#abacff" />
+              <path d="M118 141.4 l0 5 6 3 0 -5" fill="#abacff" />
+              <path d="M130 147.2 l0 5 6 3 0 -5" fill="#abacff" />
+              <path d="M142 153.0 l0 5 6 3 0 -5" fill="#abacff" />
+              <path d="M154 158.8 l0 5 6 3 0 -5" fill="#abacff" />
+              <path d="M166 164.6 l0 5 6 3 0 -5" fill="#abacff" />
+              <path d="M178 170.4 l0 5 6 3 0 -5" fill="#abacff" />
+              <path d="M190 176.2 l0 5 6 3 0 -5" fill="#abacff" />
+              <path d="M202 182.0 l0 5 6 3 0 -5" fill="#abacff" />
+              <path d="M214 187.8 l0 5 6 3 0 -5" fill="#abacff" />
+              <path d="M330 141l40 0 12 -12h24" stroke="#abacff" fill="none" /><text x="411" y="133" font-size="14"
+                fill="#abacff" font-family="monospace">Express</text>
+            </g>
+          </g>
+          <g transform="translate(0,42)">
+            <g class="plate" style="--lift:-27px">
+              <path d="M65 116l147 -74 147 74 -147 74z" fill="url(#board)" stroke="#f3bc7e" />
+              <g fill="none" stroke="#f3bc7e" opacity=".38">
+                <path d="M95 111.0 l38 -19 0 -7 18 -9" />
+                <path d="M107 116.8 l38 -19 0 -7 18 -9" />
+                <path d="M119 122.6 l38 -19 0 -7 18 -9" />
+                <path d="M131 128.4 l38 -19 0 -7 18 -9" />
+                <path d="M143 134.2 l38 -19 0 -7 18 -9" />
+                <path d="M155 140.0 l38 -19 0 -7 18 -9" />
+                <path d="M167 145.8 l38 -19 0 -7 18 -9" />
+                <path d="M179 151.6 l38 -19 0 -7 18 -9" />
+                <path d="M191 157.4 l38 -19 0 -7 18 -9" />
+              </g>
+              <path d="M65 116l147 74v12L65 128z" fill="#19313a" stroke="#48616a" />
+              <path d="M212 190l147 -74v12l-147 74z" fill="#0f1d24" stroke="#f3bc7e" />
+              <path d="M82 124.0 l0 5 6 3 0 -5" fill="#f3bc7e" />
+              <path d="M94 129.8 l0 5 6 3 0 -5" fill="#f3bc7e" />
+              <path d="M106 135.6 l0 5 6 3 0 -5" fill="#f3bc7e" />
+              <path d="M118 141.4 l0 5 6 3 0 -5" fill="#f3bc7e" />
+              <path d="M130 147.2 l0 5 6 3 0 -5" fill="#f3bc7e" />
+              <path d="M142 153.0 l0 5 6 3 0 -5" fill="#f3bc7e" />
+              <path d="M154 158.8 l0 5 6 3 0 -5" fill="#f3bc7e" />
+              <path d="M166 164.6 l0 5 6 3 0 -5" fill="#f3bc7e" />
+              <path d="M178 170.4 l0 5 6 3 0 -5" fill="#f3bc7e" />
+              <path d="M190 176.2 l0 5 6 3 0 -5" fill="#f3bc7e" />
+              <path d="M202 182.0 l0 5 6 3 0 -5" fill="#f3bc7e" />
+              <path d="M214 187.8 l0 5 6 3 0 -5" fill="#f3bc7e" />
+              <path d="M330 141l40 0 12 -12h24" stroke="#f3bc7e" fill="none" /><text x="411" y="133" font-size="14"
+                fill="#f3bc7e" font-family="monospace">Node.js</text>
+            </g>
+          </g>
+          <g transform="translate(0,0)">
+            <g class="plate" style="--lift:-36px">
+              <path d="M65 116l147 -74 147 74 -147 74z" fill="url(#board)" stroke="#93ece4" />
+              <g fill="none" stroke="#93ece4" opacity=".38">
+                <path d="M95 111.0 l38 -19 0 -7 18 -9" />
+                <path d="M107 116.8 l38 -19 0 -7 18 -9" />
+                <path d="M119 122.6 l38 -19 0 -7 18 -9" />
+                <path d="M131 128.4 l38 -19 0 -7 18 -9" />
+                <path d="M143 134.2 l38 -19 0 -7 18 -9" />
+                <path d="M155 140.0 l38 -19 0 -7 18 -9" />
+                <path d="M167 145.8 l38 -19 0 -7 18 -9" />
+                <path d="M179 151.6 l38 -19 0 -7 18 -9" />
+                <path d="M191 157.4 l38 -19 0 -7 18 -9" />
+              </g>
+              <path d="M152 101l62 -31 63 31 -63 32z" fill="#183a3c" stroke="#8bddcc" /><text
+                transform="matrix(1 .49 -1 .49 181 96)" font-family="monospace" font-size="26" font-weight="bold"
+                fill="#caffec">&lt;/&gt;</text>
+              <path d="M65 116l147 74v12L65 128z" fill="#19313a" stroke="#48616a" />
+              <path d="M212 190l147 -74v12l-147 74z" fill="#0f1d24" stroke="#93ece4" />
+              <path d="M82 124.0 l0 5 6 3 0 -5" fill="#93ece4" />
+              <path d="M94 129.8 l0 5 6 3 0 -5" fill="#93ece4" />
+              <path d="M106 135.6 l0 5 6 3 0 -5" fill="#93ece4" />
+              <path d="M118 141.4 l0 5 6 3 0 -5" fill="#93ece4" />
+              <path d="M130 147.2 l0 5 6 3 0 -5" fill="#93ece4" />
+              <path d="M142 153.0 l0 5 6 3 0 -5" fill="#93ece4" />
+              <path d="M154 158.8 l0 5 6 3 0 -5" fill="#93ece4" />
+              <path d="M166 164.6 l0 5 6 3 0 -5" fill="#93ece4" />
+              <path d="M178 170.4 l0 5 6 3 0 -5" fill="#93ece4" />
+              <path d="M190 176.2 l0 5 6 3 0 -5" fill="#93ece4" />
+              <path d="M202 182.0 l0 5 6 3 0 -5" fill="#93ece4" />
+              <path d="M214 187.8 l0 5 6 3 0 -5" fill="#93ece4" />
+              <path d="M330 141l40 0 12 -12h24" stroke="#93ece4" fill="none" /><text x="411" y="133" font-size="14"
+                fill="#93ece4" font-family="monospace">React</text>
+            </g>
+          </g>
+        </svg>
       </div>
-
-      <!-- Phase 2 & 3: Cyber Decryption into Brand Wordmark + Dev Badge -->
-      <div class="preloader-brand-wrap" id="preloaderBrand">
-        <div class="preloader-assembled-name" id="brandCipher">
-          <span class="cipher-char" data-char="H">_</span>
-          <span class="cipher-char" data-char="a">_</span>
-          <span class="cipher-char" data-char="n">_</span>
-          <span class="cipher-char" data-char="a">_</span>
-          <span class="cipher-char" data-char="n">_</span>
-        </div>
-        <div class="preloader-dev-pill" id="devPill">
-          <span>Dev</span>
-        </div>
+      <div class="storm-foot"><span>Loading portfolio</span>
+        <div class="storm-line"><i></i></div><output aria-live="off">0%</output><button class="storm-skip"
+          type="button">Skip intro</button>
       </div>
-    </div>
+    </div><i class="storm-dot"></i><i class="storm-ring"></i>
+  </dialog>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      if (!root.classList.contains('preloading')) return;
+      const dialog = document.getElementById('preloader');
+      const output = dialog.querySelector('output');
+      let frame, fadeTimer, deadline;
 
-    <!-- Shockwave ring overlay -->
-    <div class="preloader-shockwave" id="shockwave"></div>
+      function finish() {
+        if (!root.classList.contains('preloading')) return;
+        clearTimeout(deadline);
+        clearTimeout(fadeTimer);
+        cancelAnimationFrame(frame);
+        if (dialog.open) dialog.close();
+        root.classList.remove('preloading');
+        window.__isPreloading = false;
+        window.dispatchEvent(new Event('preloaderFinished'));
+      }
 
-    <!-- Bottom progress & telemetry -->
-    <div class="preloader-progress-wrap" id="preloaderProgress">
-      <div class="preloader-status-bar">
-        <span class="status-label" id="preloaderStatus">INITIALIZING SYSTEM</span>
-        <span class="preloader-progress-text" id="preloaderPct">0%</span>
-      </div>
-      <div class="preloader-progress-track">
-        <div class="preloader-progress-fill" id="preloaderFill"></div>
-      </div>
-    </div>
-  </div>
+      deadline = setTimeout(finish, 4200);
+      dialog.querySelector('.storm-skip').onclick = finish;
+      dialog.oncancel = event => { event.preventDefault(); finish(); };
+      try {
+        dialog.showModal();
+        window.__isPreloading = true;
+        const start = performance.now();
+        function draw(now) {
+          const progress = Math.min(1, (now - start) / 3200);
+          output.textContent = Math.floor(progress * 100) + '%';
+          dialog.style.setProperty('--progress', progress);
+          if (progress < 1) frame = requestAnimationFrame(draw);
+          else {
+            dialog.classList.add('is-leaving');
+            fadeTimer = setTimeout(finish, 580);
+          }
+        }
+        frame = requestAnimationFrame(draw);
+      } catch { finish(); }
+    })();
+  </script>
 
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- Particle Canvas (Hero Background) -->
-  <canvas id="particleCanvas"></canvas>
+  <canvas aria-hidden="true" id="particleCanvas"></canvas>
 
   <!-- header design -->
   <header class="header">
@@ -167,19 +308,7 @@
     </a>
 
     <div class="theme-switcher" id="theme-switcher">
-      <i class='bx bx-palette' id="theme-btn"></i>
-      <div class="theme-menu">
-        <div class="theme-option" data-set-theme="default" style="background: #081b29; border: 2px solid #00abf0;"
-          title="Default Dark"></div>
-        <div class="theme-option" data-set-theme="light" style="background: #f4f4f4; border: 2px solid #00abf0;"
-          title="Light Mode"></div>
-        <div class="theme-option" data-set-theme="purple" style="background: #1a0b2e; border: 2px solid #ff2a7a;"
-          title="Midnight Purple"></div>
-        <div class="theme-option" data-set-theme="forest" style="background: #051f0f; border: 2px solid #00ff88;"
-          title="Forest Green"></div>
-        <div class="theme-option" data-set-theme="sunset" style="background: #2a0808; border: 2px solid #ffaa00;"
-          title="Sunset Crimson"></div>
-      </div>
+      <button type="button" id="theme-btn">Light</button>
     </div>
 
     <div class="bx bx-menu" id="menu-icon"></div>
@@ -221,7 +350,7 @@
       <div class="btn-box">
         <a href="#contact" class="btn">Hire Me</a>
         <a href="#contact" class="btn">Let's Talk</a>
-        <a href="M.Hanan Raza CV.pdf" class="btn" download>Download CV</a>
+        <a href="M.Hanan Raza CV.pdf" class="btn" id="view-cv">View CV</a>
         <span class="animate" style="--i: 5"></span>
       </div>
 
@@ -245,7 +374,7 @@
 
     <div class="home-sci">
       <!-- Netlify / live projects -->
-      <a href="https://hanan-dev.netlify.app"><i class="bx bx-globe"></i></a>
+      <a href="https://hanan-dev.vercel.app"><i class="bx bx-globe"></i></a>
       <!-- Indeed -->
       <!-- <a href="https://profile.indeed.com/p/mr-dc6m483"><i class="bx bx-briefcase"></i></a> -->
       <!-- Linkedin -->
@@ -317,7 +446,6 @@
 
         <!-- Card 1 -->
         <div class="journey-card jcard--edu" style="--i:2">
-          <div class="jcard-node"></div>
           <div class="jcard-year-badge">2015 – 2019</div>
           <div class="jcard-body">
             <div class="jcard-icon"><i class="bx bxs-school"></i></div>
@@ -335,7 +463,6 @@
 
         <!-- Card 2 -->
         <div class="journey-card jcard--edu" style="--i:3">
-          <div class="jcard-node"></div>
           <div class="jcard-year-badge">2020 – 2022</div>
           <div class="jcard-body">
             <div class="jcard-icon"><i class="bx bxs-book-open"></i></div>
@@ -353,7 +480,6 @@
 
         <!-- Card 3 -->
         <div class="journey-card jcard--edu" style="--i:4">
-          <div class="jcard-node jcard-node--active"></div>
           <div class="jcard-year-badge jcard-year-badge--now">2023 – Present</div>
           <div class="jcard-body">
             <div class="jcard-icon"><i class="bx bxs-devices"></i></div>
@@ -372,12 +498,6 @@
 
       </div><!-- /left col -->
 
-      <!-- ── CENTER DIVIDER ── -->
-      <div class="journey-divider">
-        <div class="jdiv-line"></div>
-        <div class="jdiv-pulse"></div>
-      </div>
-
       <!-- ── RIGHT COLUMN: Experience / Tech ── -->
       <div class="journey-col journey-col--right">
         <div class="journey-col-header">
@@ -387,7 +507,6 @@
 
         <!-- Card 4 -->
         <div class="journey-card jcard--exp" style="--i:2">
-          <div class="jcard-node"></div>
           <div class="jcard-year-badge">2021 – 2022</div>
           <div class="jcard-body">
             <div class="jcard-icon"><i class="bx bxl-html5"></i></div>
@@ -405,7 +524,6 @@
 
         <!-- Card 5 -->
         <div class="journey-card jcard--exp" style="--i:3">
-          <div class="jcard-node"></div>
           <div class="jcard-year-badge">2022 – 2023</div>
           <div class="jcard-body">
             <div class="jcard-icon"><i class="bx bxl-php"></i></div>
@@ -423,7 +541,6 @@
 
         <!-- Card 6 -->
         <div class="journey-card jcard--exp" style="--i:4">
-          <div class="jcard-node jcard-node--active"></div>
           <div class="jcard-year-badge jcard-year-badge--now">2023 – Present</div>
           <div class="jcard-body">
             <div class="jcard-icon"><i class="bx bxl-react"></i></div>
@@ -736,7 +853,7 @@
           aria-controls="panel-fullstack" data-panel="fullstack">
           <i class="bx bx-server"></i>
           <span>Full-Stack</span>
-          <em class="tab-count">4</em>
+          <em class="tab-count">5</em>
         </button>
         <button class="proj-tab" id="tab-3d" role="tab" aria-selected="false" aria-controls="panel-3d" data-panel="3d">
           <i class="bx bx-cube-alt"></i>
@@ -758,10 +875,33 @@
       <div class="panel-label">
         <i class="bx bx-server"></i>
         <span>Full-Stack Development</span>
-        <p>Complete web applications — from database design to dynamic front-end, powered by PHP, ASP.NET Core, and SQL.
+        <p>Complete web applications built with the MERN stack, ASP.NET Core, PHP, and SQL.
         </p>
       </div>
       <div class="projects-container">
+
+        <!-- Veyra Market -->
+        <div class="project-card">
+          <div class="project-img project-img--veyra">
+            <img src="images/veyra-market.webp" width="1056" height="720"
+              alt="Veyra Market storefront featuring the Sound in Focus audio collection" loading="lazy" />
+            <div class="project-links">
+              <a href="https://veyramarket.vercel.app/" target="_blank" rel="noopener"
+                aria-label="View Veyra Market live" title="View Live"><i class="bx bx-link-external"
+                  aria-hidden="true"></i></a>
+            </div>
+          </div>
+          <div class="project-content">
+            <div class="project-tech-stack">
+              <span>React</span><span>Node.js</span><span>Express</span><span>MongoDB</span>
+            </div>
+            <h3>Veyra Market – Full-Stack E-Commerce Marketplace</h3>
+            <p>Veyra Market is a MERN marketplace where shoppers can explore a department or search for a specific
+              product. They can save favorites to a wishlist for later, add their picks to the cart, and review what
+              they plan to buy. After placing an order, they can return to track its progress.</p>
+          </div>
+          <span class="animate scroll" style="--i: 2"></span>
+        </div>
 
         <!-- Zarvio -->
         <div class="project-card">
@@ -851,27 +991,30 @@
       <div class="panel-label">
         <i class="bx bx-cube-alt"></i>
         <span>3D &amp; Motion</span>
-        <p>Immersive experiences built with AI-powered development using Gemini, Claude, and GPT — driven by original ideas, creative direction, and real talent.</p>
+        <p>Immersive experiences built with AI-powered development using Gemini, Claude, and GPT — driven by original
+          ideas, creative direction, and real talent.</p>
       </div>
       <div class="projects-container">
 
-        <!-- Quietframe -->
+        <!-- 3DE -->
         <div class="project-card">
           <div class="project-img">
-            <img src="images/Quietframe.jpg" alt="Quietframe Architectural 3D Experience Preview" />
+            <img src="images/3de.png"
+              alt="3DE homepage showing the featured residence beneath the words Space, Considered." />
             <div class="project-links">
-              <a href="https://quiet-frame-build.vercel.app/" target="_blank" title="View Live"><i
+              <a href="https://3d-made-easy.vercel.app/" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
             </div>
           </div>
           <div class="project-content">
             <div class="project-tech-stack">
-              <span>Three.js</span><span>Next.js</span><span>WebGL</span><span>GSAP</span><span class="ai-badge">⚡ AI-Built</span>
+              <span>Three.js</span><span>Next.js</span><span>WebGL</span><span>GSAP</span><span class="ai-badge">⚡
+                AI-Built</span>
             </div>
-            <h3>Quietframe – Contemporary Architecture &amp; 3D Residences</h3>
-            <p>An ultra-refined, interactive 3D architectural showcase exploring considered spaces, material, and light.
-              Features cinematic spatial navigation, high-fidelity real-time rendering, smooth scroll choreography, and an
-              editorial luxury aesthetic.</p>
+            <h3>3DE – 3D made EASY</h3>
+            <p>An interactive architecture portfolio that takes visitors from a scroll-driven presentation of the
+              featured residence into a first-person 3D walkthrough. Explore the exterior and furnished rooms, then try
+              different finishes on the walls and floors.</p>
           </div>
           <span class="animate scroll" style="--i: 2"></span>
         </div>
@@ -887,7 +1030,8 @@
           </div>
           <div class="project-content">
             <div class="project-tech-stack">
-              <span>JavaScript</span><span>GLSL</span><span>CSS</span><span>Python</span><span class="ai-badge">⚡ AI-Built</span>
+              <span>JavaScript</span><span>GLSL</span><span>CSS</span><span>Python</span><span class="ai-badge">⚡
+                AI-Built</span>
             </div>
             <h3>Infinite Voyage – Immersive 3D Galaxy Experience</h3>
             <p>A cinematic, immersive 3D space exploration experience featuring GPU-driven GLSL shaders for particle
@@ -908,7 +1052,8 @@
           </div>
           <div class="project-content">
             <div class="project-tech-stack">
-              <span>Three.js</span><span>WebGL</span><span>GSAP</span><span>3D</span><span class="ai-badge">⚡ AI-Built</span>
+              <span>Three.js</span><span>WebGL</span><span>GSAP</span><span>3D</span><span class="ai-badge">⚡
+                AI-Built</span>
             </div>
             <h3>Raahi – 3D Immersive Travel Experience</h3>
             <p>A cinematic 3D travel website built to showcase Pakistan's beauty, featuring a scroll-driven 3D airplane
@@ -968,7 +1113,8 @@
           </div>
           <div class="project-content">
             <div class="project-tech-stack">
-              <span>Three.js</span><span>Weather API</span><span>JavaScript</span><span class="ai-badge">⚡ AI-Built</span>
+              <span>Three.js</span><span>Weather API</span><span>JavaScript</span><span class="ai-badge">⚡
+                AI-Built</span>
             </div>
             <h3>OrbitSky – Interactive 3D Global Weather Platform</h3>
             <p>A cinematic weather experience powered by Three.js, featuring a real-time interactive 3D Earth globe.
@@ -983,13 +1129,14 @@
           <div class="project-img">
             <img src="images/Rolex Motion.png" alt="Rolex Motion Preview" />
             <div class="project-links">
-              <a href="https://rolex-motion.netlify.app" target="_blank" title="View Live"><i
+              <a href="https://rolex-motion.vercel.app" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
             </div>
           </div>
           <div class="project-content">
             <div class="project-tech-stack">
-              <span>Canvas</span><span>Scroll Animation</span><span>JavaScript</span><span class="ai-badge">⚡ AI-Built</span>
+              <span>Canvas</span><span>Scroll Animation</span><span>JavaScript</span><span class="ai-badge">⚡
+                AI-Built</span>
             </div>
             <h3>Rolex Motion Experience</h3>
             <p>A cinematic scroll-driven web experience created by converting video into sequenced frames and
@@ -1003,13 +1150,14 @@
           <div class="project-img">
             <img src="images/Pixel Developer Portfolio.png" alt="Pixel Developer Portfolio Preview" />
             <div class="project-links">
-              <a href="https://pixel-developer-portfolio.netlify.app" target="_blank" title="View Live"><i
+              <a href="https://pixel-portfolio-blue.vercel.app" target="_blank" title="View Live"><i
                   class="bx bx-link-external"></i></a>
             </div>
           </div>
           <div class="project-content">
             <div class="project-tech-stack">
-              <span>CSS Animation</span><span>JavaScript</span><span>Retro UI</span><span class="ai-badge">⚡ AI-Built</span>
+              <span>CSS Animation</span><span>JavaScript</span><span>Retro UI</span><span class="ai-badge">⚡
+                AI-Built</span>
             </div>
             <h3>Pixel Developer Portfolio</h3>
             <p>A retro 8-bit gaming-themed web developer portfolio featuring interactive quest logs, player stats,
@@ -1029,7 +1177,8 @@
           </div>
           <div class="project-content">
             <div class="project-tech-stack">
-              <span>Three.js</span><span>WebGL</span><span>Scroll Animation</span><span class="ai-badge">⚡ AI-Built</span>
+              <span>Three.js</span><span>WebGL</span><span>Scroll Animation</span><span class="ai-badge">⚡
+                AI-Built</span>
             </div>
             <h3>Aventador Instinct – Cinematic V12 3D Experience</h3>
             <p>A cinematic, scroll-driven 3D automotive experience showcasing the Lamborghini Aventador with sequenced
@@ -1049,7 +1198,8 @@
           </div>
           <div class="project-content">
             <div class="project-tech-stack">
-              <span>Three.js</span><span>WebGL</span><span>GSAP</span><span>3D Game</span><span class="ai-badge">⚡ AI-Built</span>
+              <span>Three.js</span><span>WebGL</span><span>GSAP</span><span>3D Game</span><span class="ai-badge">⚡
+                AI-Built</span>
             </div>
             <h3>Neon Drift – 3D Arcade Racing Game</h3>
             <p>A cinematic 3D hover-racing game with three unique neon circuits, real-time drift and boost mechanics, AI
@@ -1070,7 +1220,8 @@
           </div>
           <div class="project-content">
             <div class="project-tech-stack">
-              <span>Three.js</span><span>WebGL</span><span>Node.js</span><span>WebSocket</span><span>3D Game</span><span class="ai-badge">⚡ AI-Built</span>
+              <span>Three.js</span><span>WebGL</span><span>Node.js</span><span>WebSocket</span><span>3D Game</span><span
+                class="ai-badge">⚡ AI-Built</span>
             </div>
             <h3>LAST ZONE – 3D Multiplayer Battle Royale</h3>
             <p>An intense browser battle royale featuring first-person shooter mechanics, procedural combat maps,
@@ -1307,8 +1458,85 @@
     }
   }
   </script>
+  <script defer src="cursor.js"></script>
+  <script src="stars.js"></script>
   <script src="script.js"></script>
   <script type="module" src="globe.js"></script>
+  <dialog id="cv-dialog" aria-labelledby="cv-title">
+    <header class="cv-toolbar">
+      <h2 id="cv-title">My CV</h2>
+      <a class="cv-download" href="M.Hanan Raza CV.pdf" download>Download PDF</a>
+      <button type="button" aria-label="Close CV" autofocus>×</button>
+    </header>
+    <div class="cv-pages" tabindex="0" aria-label="CV pages">
+      <div class="cv-sheet">
+        <img data-page="images/resume/page-1.png" alt="Muhammad Hanan Raza’s CV, page 1 of 2">
+        <a class="cv-hotspot" aria-label="Call Hanan" href="tel:+923192506226"
+          style="left:16.403%;top:8.154%;width:10.756%;height:1.384%"></a>
+        <a class="cv-hotspot" aria-label="Email Hanan" href="mailto:hannanraza53@gmail.com"
+          style="left:12.275%;top:10.219%;width:19.100%;height:1.384%"></a>
+        <a class="cv-hotspot" aria-label="GitHub" href="https://github.com/hananraza53" target="_blank" rel="noopener"
+          style="left:83.300%;top:8.797%;width:9.589%;height:1.384%"></a>
+        <a class="cv-hotspot" aria-label="Portfolio" href="https://hanan-dev.vercel.app" target="_blank" rel="noopener"
+          style="left:84.668%;top:11.727%;width:7.967%;height:1.384%"></a>
+        <a class="cv-hotspot" aria-label="LinkedIn" href="https://www.linkedin.com/in/muhammad-hanan-raza/"
+          target="_blank" rel="noopener" style="left:14.528%;top:13.363%;width:16.779%;height:1.190%"></a>
+      </div>
+      <img data-page="images/resume/page-2.png" alt="Muhammad Hanan Raza’s CV, page 2 of 2">
+      <a href="M.Hanan Raza CV.pdf" target="_blank" rel="noopener">Open original PDF</a>
+    </div>
+  </dialog>
+  <script>
+    (() => {
+      const viewer = document.getElementById('cv-dialog');
+      const trigger = document.getElementById('view-cv');
+      if (!viewer.showModal) return;
+      const pages = viewer.querySelector('.cv-pages');
+      let motion;
+      let closing = false;
+      function transition(out) {
+        motion?.cancel();
+        const source = trigger.getBoundingClientRect();
+        const box = viewer.getBoundingClientRect();
+        const dx = source.left + source.width / 2 - box.left - box.width / 2;
+        const dy = source.top + source.height / 2 - box.top - box.height / 2;
+        const small = { transform: `translate(${dx}px, ${dy}px) scale(${source.width / box.width}, ${source.height / box.height})`, opacity: 0.15 };
+        const full = { transform: 'none', opacity: 1 };
+        return viewer.animate(out ? [full, small] : [small, full], {
+          duration: matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : (out ? 320 : 420),
+          easing: out ? 'cubic-bezier(.45,0,.65,1)' : 'cubic-bezier(.2,.75,.25,1)'
+        });
+      }
+      function dismiss() {
+        if (closing) return;
+        closing = true;
+        if (motion && motion.playState === 'running') motion.reverse();
+        else motion = transition(true);
+        motion.onfinish = () => viewer.close();
+      }
+      trigger.addEventListener('click', event => {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        for (const image of pages.querySelectorAll('[data-page]')) {
+          image.src = image.dataset.page;
+          image.removeAttribute('data-page');
+        }
+        viewer.showModal();
+        pages.scrollTop = 0;
+        closing = false;
+        motion = transition(false);
+      });
+      viewer.querySelector('button').onclick = dismiss;
+      viewer.addEventListener('cancel', event => { event.preventDefault(); dismiss(); });
+      viewer.addEventListener('click', event => {
+        if (event.target !== viewer) return;
+        const rect = viewer.getBoundingClientRect();
+        if (event.clientX < rect.left || event.clientX > rect.right ||
+          event.clientY < rect.top || event.clientY > rect.bottom) dismiss();
+      });
+      viewer.addEventListener('close', () => trigger.focus({ preventScroll: true }));
+    })();
+  </script>
 </body>
 
 </html>
