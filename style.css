@@ -1,3 +1,4 @@
+@font-face { font-family: Inter; src: url('fonts/inter-latin.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
 
 
 
@@ -2765,3 +2766,6 @@ html.orb-active #cv-dialog::backdrop { cursor: none; }
     .globe-wrapper { max-width: 100%; }
     .cv-toolbar .cv-download { width: auto; padding-inline: 12px; font-size: 14px; }
 }
+
+#globeCanvas.globe-static { animation: none; background: radial-gradient(circle at 30% 30%, transparent 15%, #00111cdd 90%), url('planet/textures/Planet_baseColor.jpg') center / cover; }
+.preloader.is-leaving { animation-duration: .18s; }

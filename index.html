@@ -28,12 +28,8 @@
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   </script>
 
-  <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" media="print" onload="this.media='all'" />
-
+  <link rel="preload" as="image" href="images/ppp.webp" fetchpriority="high">
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css" />
 
   <!-- box icons -->
@@ -210,39 +206,55 @@
       if (!root.classList.contains('preloading')) return;
       const dialog = document.getElementById('preloader');
       const output = dialog.querySelector('output');
-      let frame, fadeTimer, deadline;
-
+      let dismissed = false;
+      let timer;
       function finish() {
-        if (!root.classList.contains('preloading')) return;
-        clearTimeout(deadline);
-        clearTimeout(fadeTimer);
-        cancelAnimationFrame(frame);
+        if (dismissed) return;
+        dismissed = true;
+        clearTimeout(timer);
         if (dialog.open) dialog.close();
         root.classList.remove('preloading');
         window.__isPreloading = false;
         window.dispatchEvent(new Event('preloaderFinished'));
       }
-
-      const compact = matchMedia('(max-width: 768px), (pointer: coarse)').matches;
-      const duration = compact ? 600 : 3200;
-      deadline = setTimeout(finish, compact ? 1100 : 4200);
       dialog.querySelector('.storm-skip').onclick = finish;
       dialog.oncancel = event => { event.preventDefault(); finish(); };
       try {
         dialog.showModal();
         window.__isPreloading = true;
-        const start = performance.now();
-        function draw(now) {
-          const progress = Math.min(1, (now - start) / duration);
-          output.textContent = Math.floor(progress * 100) + '%';
-          dialog.style.setProperty('--progress', progress);
-          if (progress < 1) frame = requestAnimationFrame(draw);
-          else {
-            dialog.classList.add('is-leaving');
-            fadeTimer = setTimeout(finish, compact ? 180 : 580);
+        const portrait = new Image();
+        portrait.src = 'images/ppp.webp';
+        const portraitReady = portrait.decode().then(() => true, () => false);
+        const pageLoaded = new Promise(resolve => window.addEventListener('load', resolve, {once:true}));
+        document.addEventListener('DOMContentLoaded', () => {
+          const tasks = [portraitReady.then(ok => { if (!ok) finish(); }), window.portfolioGlobeReady, pageLoaded.then(async () => {
+            await Promise.all([document.fonts.load('16px Inter'), document.fonts.load('16px boxicons')]);
+            await document.fonts.ready;
+          })];
+          for (const img of document.querySelectorAll('.project-card img, .cv-pages img')) {
+            if (img.dataset.page) {
+              img.src = img.dataset.page;
+              img.removeAttribute('data-page');
+            }
+            img.loading = 'eager';
+            tasks.push(img.decode());
           }
-        }
-        frame = requestAnimationFrame(draw);
+          let completed = 0;
+          function settled() {
+            if (dismissed) return;
+            const percent = Math.floor(++completed * 100 / tasks.length);
+            output.textContent = percent + '%';
+            dialog.style.setProperty('--progress', percent / 100);
+            if (completed === tasks.length) {
+              dialog.classList.add('is-leaving');
+              timer = setTimeout(finish, 180);
+            }
+          }
+          tasks.forEach(task => Promise.resolve(task).then(settled, () => {
+            // Reveal the usable page on failure without claiming full readiness.
+            finish();
+          }));
+        }, {once:true});
       } catch { finish(); }
     })();
   </script>
@@ -1436,14 +1448,13 @@
   <script src="stars.js"></script>
   <script src="script.js"></script>
   <script type="module">
-    const globe = document.getElementById('globeCanvas');
-    const observer = new IntersectionObserver(entries => {
-      if (entries.some(entry => entry.isIntersecting)) {
-        observer.disconnect();
-        import('./globe.js').catch(error => console.warn('Globe unavailable', error));
-      }
-    }, { rootMargin: '280px' });
-    observer.observe(globe);
+    window.portfolioGlobeReady = import('./globe.js').then(module => module.ready).catch(async () => {
+      const earth = new Image();
+      earth.src = 'planet/textures/Planet_baseColor.jpg';
+      await earth.decode();
+      document.getElementById('globeCanvas').classList.add('globe-static');
+    });
+    window.portfolioGlobeReady.catch(() => {});
   </script>
   <dialog id="cv-dialog" aria-labelledby="cv-title">
     <header class="cv-toolbar">

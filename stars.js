@@ -22,7 +22,7 @@
         canvas.width = Math.round(width * scale);
         canvas.height = Math.round(height * scale);
         context.setTransform(scale, 0, 0, scale, 0, 0);
-        const count = Math.max(68, Math.min(256, Math.round(width * height / 4625)));
+        const count = Math.max(38, Math.min(140, Math.round(width * height / 6800)));
         stars = Array.from({length:count}, () => ({
             x:Math.random()*width, y:Math.random()*height,
             vx:(Math.random()-.5)*19, vy:(Math.random()-.5)*19,
@@ -41,6 +41,7 @@
         context.moveTo(x,y); context.lineTo(endX,endY); context.stroke();
     }
     function draw(now) {
+        if (now - previous < 1000 / 32) { requestAnimationFrame(draw); return; }
         const dt = motion.matches ? 0 : Math.min((now-previous)/1000,.05);
         previous=now;
         context.clearRect(0,0,width,height);

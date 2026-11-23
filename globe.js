@@ -9,9 +9,9 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-(function initGlobe() {
+export const ready = new Promise((resolve, reject) => {
   const canvas = document.getElementById('globeCanvas');
-  if (!canvas) return;
+  if (!canvas) { resolve(); return; }
 
   const wrapper = canvas.closest('.globe-wrapper');
 
@@ -139,6 +139,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
       scene.add(planetMesh);
       canvas.classList.add('globe-loaded');
+      resolve();
     },
     undefined,
     (err) => {
@@ -152,6 +153,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
       planetMesh = new THREE.Mesh(fbGeo, fbMat);
       scene.add(planetMesh);
       canvas.classList.add('globe-loaded');
+      resolve();
     }
   );
 
@@ -205,4 +207,4 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
       requestAnimationFrame(resetTilt);
     })();
   });
-})();
+});
