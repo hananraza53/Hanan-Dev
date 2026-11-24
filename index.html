@@ -208,10 +208,12 @@
       const output = dialog.querySelector('output');
       let dismissed = false;
       let timer;
+      let progressTimer;
       function finish() {
         if (dismissed) return;
         dismissed = true;
         clearTimeout(timer);
+        clearInterval(progressTimer);
         if (dialog.open) dialog.close();
         root.classList.remove('preloading');
         window.__isPreloading = false;
@@ -221,6 +223,8 @@
       dialog.oncancel = event => { event.preventDefault(); finish(); };
       try {
         dialog.showModal();
+        const openedAt = performance.now();
+        const minimumIntroMs = 4000;
         window.__isPreloading = true;
         const portrait = new Image();
         portrait.src = 'images/ppp.webp';
@@ -240,17 +244,21 @@
             tasks.push(img.decode());
           }
           let completed = 0;
-          function settled() {
+          function updateProgress() {
             if (dismissed) return;
-            const percent = Math.floor(++completed * 100 / tasks.length);
+            const elapsedFraction = Math.min(1, (performance.now() - openedAt) / minimumIntroMs);
+            const readyFraction = completed / tasks.length;
+            const percent = Math.floor(100 * Math.min(elapsedFraction, readyFraction));
             output.textContent = percent + '%';
             dialog.style.setProperty('--progress', percent / 100);
-            if (completed === tasks.length) {
+            if (percent === 100) {
+              clearInterval(progressTimer);
               dialog.classList.add('is-leaving');
               timer = setTimeout(finish, 180);
             }
           }
-          tasks.forEach(task => Promise.resolve(task).then(settled, () => {
+          if (!dismissed) progressTimer = setInterval(updateProgress, 40);
+          tasks.forEach(task => Promise.resolve(task).then(() => { completed++; }, () => {
             // Reveal the usable page on failure without claiming full readiness.
             finish();
           }));
