@@ -6,11 +6,12 @@
     const reduced = matchMedia('(prefers-reduced-motion: reduce)');
     let x, y, dotX, dotY, ringX, ringY, lastTime, frame = 0;
     const cv = document.getElementById('cv-dialog');
+    const certificate = document.getElementById('certificate-dialog');
     function place() {
-        (cv?.open ? cv : dialog.open ? dialog : document.body).append(dot, ring);
+        (certificate?.open ? certificate : cv?.open ? cv : dialog.open ? dialog : document.body).append(dot, ring);
     }
     const observer = new MutationObserver(place);
-    for (const modal of [dialog, cv].filter(Boolean)) {
+    for (const modal of [dialog, cv, certificate].filter(Boolean)) {
         observer.observe(modal, {attributes:true, attributeFilter:['open']});
     }
     place();

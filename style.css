@@ -2769,3 +2769,32 @@ html.orb-active #cv-dialog::backdrop { cursor: none; }
 
 #globeCanvas.globe-static { animation: none; background: radial-gradient(circle at 30% 30%, transparent 15%, #00111cdd 90%), url('planet/textures/Planet_baseColor.jpg') center / cover; }
 .preloader.is-leaving { animation-duration: .18s; }
+
+/* Certificate evidence opens above the CV without losing its scroll position. */
+#certificate-dialog {
+    position: fixed; inset: 0; margin: auto; padding: 0;
+    width: min(82rem, 96vw); height: min(92dvh, 110rem);
+    border: 1px solid var(--main-color); border-radius: 1.5rem;
+    background: var(--bg-color); color: var(--text-color);
+}
+#certificate-dialog[open] { display: flex; flex-direction: column; }
+#certificate-dialog::backdrop { background: rgba(5, 10, 16, .85); }
+#certificate-dialog .cv-toolbar { position: static; display: flex; align-items: center; gap: 1rem; padding: 1rem 1.6rem; }
+.certificate-pages { flex: 1; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 1rem; }
+.certificate-pages img { display: block; width: 100%; height: auto; }
+.certificate-trigger {
+    position: absolute; right: 1.5%; padding: .35rem .65rem;
+    color: #07536c; background: #edf8fc; border: 1px solid #08799b;
+    border-radius: .5rem; font: 600 clamp(7px, 1.35vw, 12px)/1.2 Inter, sans-serif;
+    min-height: 24px; transition: background .18s, color .18s;
+}
+.certificate-trigger:is(:hover, :focus-visible) { background: #08799b; color: #fff; outline: 2px solid #e04478; outline-offset: 2px; }
+html.orb-active #certificate-dialog::backdrop { cursor: none; }
+@media (max-width: 600px) {
+    #certificate-dialog .cv-toolbar { flex-wrap: wrap; gap: .5rem; padding: .8rem; }
+    #certificate-dialog .cv-toolbar h2 { flex: 1; font-size: 1.5rem; }
+    #certificate-dialog .cv-download { min-height: 40px; font-size: 1.2rem; padding: .6rem; }
+}
+#certificate-dialog:has(img[alt^="TechWiz"]) {
+  width: min(110rem, 96vw);
+}

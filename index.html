@@ -372,7 +372,7 @@
       <div class="btn-box">
         <a href="#contact" class="btn">Hire Me</a>
         <a href="#contact" class="btn">Let's Talk</a>
-        <a href="M.Hanan Raza CV.pdf" class="btn" id="view-cv">View CV</a>
+        <a href="Muhammad-Hanan-Raza-CV.pdf" class="btn" id="view-cv">View CV</a>
         <span class="animate" style="--i: 5"></span>
       </div>
 
@@ -1467,27 +1467,35 @@
   <dialog id="cv-dialog" aria-labelledby="cv-title">
     <header class="cv-toolbar">
       <h2 id="cv-title">My CV</h2>
-      <a class="cv-download" href="M.Hanan Raza CV.pdf" download>Download PDF</a>
+      <a class="cv-download" href="Muhammad-Hanan-Raza-CV.pdf" download>Download PDF</a>
       <button type="button" aria-label="Close CV" autofocus>×</button>
     </header>
     <div class="cv-pages" tabindex="0" aria-label="CV pages">
-      <div class="cv-sheet">
-        <img data-page="images/resume/page-1.png" alt="Muhammad Hanan Raza’s CV, page 1 of 2">
-        <a class="cv-hotspot" aria-label="Call Hanan" href="tel:+923192506226"
-          style="left:16.403%;top:8.154%;width:10.756%;height:1.384%"></a>
-        <a class="cv-hotspot" aria-label="Email Hanan" href="mailto:hannanraza53@gmail.com"
-          style="left:12.275%;top:10.219%;width:19.100%;height:1.384%"></a>
-        <a class="cv-hotspot" aria-label="GitHub" href="https://github.com/hananraza53" target="_blank" rel="noopener"
-          style="left:83.300%;top:8.797%;width:9.589%;height:1.384%"></a>
-        <a class="cv-hotspot" aria-label="Portfolio" href="https://hanan-dev.vercel.app" target="_blank" rel="noopener"
-          style="left:84.668%;top:11.727%;width:7.967%;height:1.384%"></a>
-        <a class="cv-hotspot" aria-label="LinkedIn" href="https://www.linkedin.com/in/muhammad-hanan-raza/"
-          target="_blank" rel="noopener" style="left:14.528%;top:13.363%;width:16.779%;height:1.190%"></a>
-      </div>
-      <img data-page="images/resume/page-2.png" alt="Muhammad Hanan Raza’s CV, page 2 of 2">
-      <a href="M.Hanan Raza CV.pdf" target="_blank" rel="noopener">Open original PDF</a>
+<div class="cv-sheet"><img data-page="images/resume/page-1.png" alt="Muhammad Hanan Raza’s CV, page 1 of 2">
+<a class="cv-hotspot" href="https://zarvio.runasp.net/" target="_blank" rel="noopener" aria-label="https://zarvio.runasp.net/" style="left:7.997%;top:68.782%;width:11.587%;height:1.540%"></a>
+<a class="cv-hotspot" href="https://veyramarket.vercel.app/" target="_blank" rel="noopener" aria-label="https://veyramarket.vercel.app/" style="left:7.997%;top:52.544%;width:15.738%;height:1.540%"></a>
+<a class="cv-hotspot" href="https://www.linkedin.com/in/muhammad-hanan-raza" target="_blank" rel="noopener" aria-label="https://www.linkedin.com/in/muhammad-hanan-raza" style="left:24.942%;top:15.537%;width:5.615%;height:1.698%"></a>
+<a class="cv-hotspot" href="https://github.com/hananraza53" target="_blank" rel="noopener" aria-label="https://github.com/hananraza53" style="left:17.000%;top:15.537%;width:4.692%;height:1.698%"></a>
+<a class="cv-hotspot" href="https://hanan-dev.vercel.app/" target="_blank" rel="noopener" aria-label="https://hanan-dev.vercel.app/" style="left:7.997%;top:15.537%;width:5.754%;height:1.698%"></a>
+</div>
+<div class="cv-sheet"><img data-page="images/resume/page-2.png" alt="Muhammad Hanan Raza’s CV, page 2 of 2">
+<a class="cv-hotspot" href="https://3d-made-easy.vercel.app/" target="_blank" rel="noopener" aria-label="https://3d-made-easy.vercel.app/" style="left:7.997%;top:29.514%;width:16.751%;height:1.540%"></a>
+<a class="cv-hotspot" href="https://infinite-voyage-galaxy.vercel.app/" target="_blank" rel="noopener" aria-label="https://infinite-voyage-galaxy.vercel.app/" style="left:7.997%;top:15.006%;width:21.881%;height:1.540%"></a>
+<button class="certificate-trigger" type="button" data-certificate="dism" aria-label="View DISM certificate" style="top:55.445%">View certificate <span aria-hidden="true">↗</span></button>
+<button class="certificate-trigger" type="button" data-certificate="techwiz" aria-label="View TechWiz certificate" style="left:8%;right:auto;top:83.636%">TechWiz 5 <span aria-hidden="true">↗</span></button>
+</div>
+      <a href="Muhammad-Hanan-Raza-CV.pdf" target="_blank" rel="noopener">Open original PDF</a>
     </div>
   </dialog>
+  <dialog id="certificate-dialog" aria-labelledby="certificate-title">
+    <header class="cv-toolbar">
+      <h2 id="certificate-title">Certificate</h2>
+      <a class="cv-download" id="certificate-download" download>Download PDF</a>
+      <button type="button" aria-label="Close certificate" autofocus>×</button>
+    </header>
+    <div class="certificate-pages" tabindex="0" aria-label="Certificate preview"></div>
+  </dialog>
+  <script defer src="certificates.js"></script>
   <script>
     (() => {
       const viewer = document.getElementById('cv-dialog');
